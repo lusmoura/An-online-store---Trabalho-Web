@@ -1,0 +1,37 @@
+.login {
+    flex-direction: column;
+    align-items: center;
+}
+
+.signin {
+    margin: 3ch;
+    gap: 1ch;
+}
+
+.login-box {
+    flex-direction: column;
+
+    background-color: rgba(0, 0, 0, 0.05);
+    min-height: 300px;
+
+    max-width: 50%;
+    min-width: 30%;
+
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+
+    justify-content: center;
+
+    padding: 15px;
+    gap: 1em;
+}
+
+.login-box input {
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.login-field {
+    flex-direction: column;
+}

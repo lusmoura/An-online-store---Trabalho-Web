@@ -1,0 +1,149 @@
+:root {
+    --item-size: 250px;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+}
+
+.grid {
+    display: grid;
+}
+
+nav {
+    background-color: black;
+    height: 50px;
+
+    color: white;
+    flex-direction: row;
+
+    align-items: center;
+
+    padding: 1em .5em 1em .5em;
+}
+
+nav>* {
+    /* This is the selector for all children of nav */
+    padding: 1ch;
+}
+
+#logo {
+    transform: rotate(5deg);
+}
+
+#nav-pages {
+    gap: 10px;
+
+    @media screen and (max-width: 600px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+#nav-icons {
+    gap: 10px;
+    justify-content: flex-end;
+
+    margin-left: auto;
+    margin-right: 1em;
+
+}
+
+#nav-icons>img {
+    cursor: pointer;
+
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+    -webkit-transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+}
+
+.btn {
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.btn-nav {
+    min-height: 15px;
+    min-width: 50px;
+
+    border: none;
+    border-radius: 5px;
+
+    padding: .5em;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+    -webkit-transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+}
+
+.btn-nav:hover {
+    transform: scale(1.03);
+}
+
+main {
+    min-height: 100vh;
+    margin-top: 100px;
+}
+
+.grid-main {
+    width: 100%;
+
+    padding: 2em;
+
+    grid-template-columns: repeat(auto-fill, var(--item-size));
+    grid-template-rows: repeat(auto-fill, var(--item-size));
+
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.grid-item {
+    /* This is the selector for all children of grid-main */
+    border-radius: 15px;
+    border: solid 1px black;
+    height: var(--item-size);
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+footer {
+    width: 100%;
+    min-height: 150px;
+
+    background-color: black;
+    color: white;
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+footer>* {
+    padding: 0 2em 0 2em;
+}
+
+footer>img {
+    cursor: pointer;
+
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+    -webkit-transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+}

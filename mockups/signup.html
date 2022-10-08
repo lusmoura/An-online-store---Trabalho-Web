@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="account.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <nav class="container">
+        <img id="logo" src="images/logo.svg" alt="t-shirt logo" />
+        <h2>Brusinhas</h2>
+
+        <div id="nav-pages" class="container">
+            <!-- page buttons -->
+            <button class="btn-nav">Todas</button class="btn-nav">
+            <button class="btn-nav">Camiseta</button class="btn-nav">
+            <button class="btn-nav">Regata</button class="btn-nav">
+            <button class="btn-nav">Linha básica</button class="btn-nav">
+            <button class="btn-nav">Estilosas</button class="btn-nav">
+        </div>
+        <div id="nav-icons" class="container">
+            <!-- right icons -->
+            <img src="images/shoppingCart.svg" alt="shopping cart icon" />
+            <img src="images/profile.svg" alt="profile icon" />
+        </div>
+    </nav>
+
+    <main class="container login">
+        <h1>Se cadastre para comprar brusinhas!</h1>
+        <form class="container login-box">
+            <div class="container login-field">
+                <label for="name">seu nome:</label>
+                <input type="text" id="name" name="name">
+            </div>
+
+            <div class="container login-field">
+                <label for="address">senha</label>
+                <input type="text" id="address" name="address">
+            </div>
+
+            <div class="container login-field">
+                <label for="e-mail">endereço de e-mail</label>
+                <input type="text" id="e-mail" name="e-mail">
+            </div>
+
+            <div class="container login-field">
+                <label for="phone">telefone</label>
+                <input type="text" id="phone" name="phone">
+            </div>
+
+            <div class="container login-field">
+                <label for="pwd">senha</label>
+                <input type="password" id="pwd" name="pwd">
+            </div>
+
+            <div class="container login-field">
+                <label for="confirm-pwd">confirme sua senha</label>
+                <input type="password" id="confirm-pwd" name="confirm-pwd">
+            </div>
+
+            <input class="btn" id="login-submit" type="submit" value="Fazer cadastro"
+                style="max-width: 50%; align-self: flex-end;">
+        </form>
+        <div class="container signin">
+            <p>Já possui uma conta?</p>
+            <button class="btn">Fazer Login</button>
+        </div>
+    </main>
+
+    <footer class="container">
+        <div>
+            <p>© 2022 Brusinhas, Inc.</p>
+            <p>Nenhum direito reservado</p>
+        </div>
+        <img src="images/github.svg" alt="github logo">
+    </footer>
+</body>
+
+</html>
