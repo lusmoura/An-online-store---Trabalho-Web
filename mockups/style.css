@@ -1,4 +1,13 @@
 :root {
+    --strong-color: #820065;
+    --lighter-strong-color: rgb(74, 14, 61);
+
+    --light-color: #f5f5f5;
+
+    --logo-font: 'Henny Penny', cursive;
+    --body-font: 'Raleway', sans-serif;
+    --secondary-font: 'Cabin', sans-serif;
+
     --item-size: 250px;
 }
 
@@ -8,6 +17,8 @@ body {
 
     margin: 0;
     padding: 0;
+
+    font-family: var(--body-font);
 }
 
 .container {
@@ -18,11 +29,15 @@ body {
     display: grid;
 }
 
+#logo-title {
+    font-family: var(--logo-font);
+}
+
 nav {
-    background-color: black;
+    background-color: var(--strong-color);
+    color: white;
     height: 50px;
 
-    color: white;
     flex-direction: row;
 
     align-items: center;
@@ -66,19 +81,25 @@ nav>* {
 
 .btn {
     padding: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--strong-color);
     border-radius: 5px;
 
+    background-color: var(--strong-color);
+
+    color: white;
     cursor: pointer;
 }
 
 .btn:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--lighter-strong-color);
 }
 
 .btn-nav {
     min-height: 15px;
     min-width: 50px;
+
+    color: var(--strong-color);
+    font-family: var(--secondary-font);
 
     border: none;
     border-radius: 5px;
@@ -129,7 +150,7 @@ footer {
     width: 100%;
     min-height: 150px;
 
-    background-color: black;
+    background-color: var(--strong-color);
     color: white;
 
     flex-direction: row;
