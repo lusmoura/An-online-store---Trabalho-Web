@@ -56,6 +56,10 @@ The server will store information about the user and about the products:
   - Quantity in stock for each size
   - Quantity in sold for each size
 
+The navigation works as follows:
+
+![Navigation Diagram](mockups/images/navigation.png)
+
 ## Comments about the code
 
 ## Test Plan
