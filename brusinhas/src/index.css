@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
 }
 
 code {
@@ -12,6 +13,15 @@ code {
     monospace;
 }
 
+#root {
+  height: 100%;
+}
+
+.app {
+  width: 100vw;
+}
+
+/* footer */
 .footer {
   position: fixed;
   left: 0;
@@ -20,13 +30,15 @@ code {
   background-color: #820065;
   color: white;
   text-align: center;
+  height: 80px;
 }
 
 .footer-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 0px 40px;
+  height: 80px;
 }
 
 .footer-left {
@@ -38,6 +50,7 @@ code {
   text-align: start;
 }
 
+/* header */
 .header {
   display: flex;
   justify-content: space-between;
@@ -81,4 +94,141 @@ code {
   color: #820065;
   padding: 5px 15px;
   margin-right: 30px;
+}
+
+/* text field */
+.text-field-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 20px 0px;
+}
+
+.text-field-container input {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 10px 5px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.text-field-container input::placeholder {
+  color: rgba(183, 206, 206, 1);
+}
+
+.text-field-container label {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 28px;
+  margin-bottom: 5px;
+}
+
+/* checkbox */
+.checkbox-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 10px 0px;
+}
+
+.checkbox-container label {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 23px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+/* filled button */
+.filled-button {
+  padding: 10px 20px;
+  border: none;
+  background: #820065;
+  border-radius: 5px;
+  color: white;
+  font-family: Raleway;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 23px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+
+/* login page */
+.login-page-title {
+  font-family: Raleway;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 42px;
+  letter-spacing: 0em;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.login-outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.login-inner {
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.login-fields-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column;
+  padding: 20px 20px;
+  background: rgba(183, 206, 206, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+}
+
+.login-fields-container-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 20px 0px;
+}
+
+.login-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 40px 0px;
+}
+
+.login-footer p {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 23px;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
