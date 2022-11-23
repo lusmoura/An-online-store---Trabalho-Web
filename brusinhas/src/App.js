@@ -1,14 +1,13 @@
-import './App.css';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import Login from './screens/Login';
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Login from "./screens/Login";
 
 function App() {
   return (
     <div className="app">
-      <Header/>
-      <Login/>
-      <Footer/>
+      <Header />
+      <Login />
+      <Footer />
     </div>
   );
 }
