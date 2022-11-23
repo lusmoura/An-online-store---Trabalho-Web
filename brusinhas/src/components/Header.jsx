@@ -1,4 +1,3 @@
-import React from "react";
 import logo from "../assets/logo.svg";
 import brusinhas from "../assets/brusinhas.svg";
 import cart from "../assets/cart_icon.svg";
