@@ -1,9 +1,5 @@
-import React from 'react'
+import React from "react";
 
-export default function FilledButton({label, onClick}) {
-  return (
-    <button className='filled-button'>
-        {label}
-    </button>
-  )
+export default function FilledButton({ label, onClick }) {
+  return <button className="filled-button">{label}</button>;
 }

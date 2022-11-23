@@ -1,10 +1,8 @@
-import React from 'react'
-
 export default function Checkbox() {
   return (
-    <div className='checkbox-container'>
-        <input type='checkbox' className='checkbox'/>
-        <label>Lembrar de mim</label>
+    <div className="checkbox-container">
+      <label htmlFor="checkbox">Lembrar de mim</label>
+      <input type="checkbox" className="checkbox" />
     </div>
-  )
+  );
 }
