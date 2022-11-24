@@ -1,4 +1,6 @@
-import github_icon from "../assets/github_icon.svg";
+import github_icon from "../../assets/github_icon.svg";
+
+import "./style.css";
 
 export default function Footer() {
   return (

@@ -1,6 +1,8 @@
-import Checkbox from "../components/Checkbox";
-import FilledButton from "../components/FilledButton";
-import TextField from "../components/TextField";
+import Checkbox from "../../components/Checkbox/Checkbox";
+import FilledButton from "../../components/FilledButton/FilledButton";
+import TextField from "../../components/TextField/TextField";
+
+import "./style.css";
 
 export default function Login() {
   return (

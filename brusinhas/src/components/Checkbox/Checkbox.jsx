@@ -1,3 +1,5 @@
+import "./style.css";
+
 export default function Checkbox() {
   return (
     <div className="checkbox-container">

@@ -1,16 +1,15 @@
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import Signup from "./screens/Signup";
-// import Login from "./screens/Login";
+import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
+import Signup from "./screens/Signup/Signup";
 
 function App() {
   return (
-    <div className="app">
-      <Header />
-      <div className="app-content">
+    <div id="app">
+      <div id="app-content">
+        <Header id="header" />
         <Signup />
-        <Footer />
       </div>
+      <Footer id="footer" />
     </div>
   );
 }
