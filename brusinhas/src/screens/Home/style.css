@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+}
+
+.grid {
+    display: grid;
+}
+
+.grid-main {
+    width: 100%;
+
+    padding: 2em;
+
+    grid-template-columns: repeat(auto-fill, var(--item-size));
+    grid-template-rows: repeat(auto-fill, var(--item-size));
+
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}

@@ -1,45 +1,51 @@
 import tshirt from "../../assets/t-shirt.png";
+import CardItem from "../../components/CardItem/CardItem";
+
+import "./style.css";
+
+const items = [
+  {
+    id: 1,
+    src: tshirt,
+    alt: "T-shirt",
+    title: "T-shirt",
+    price: "R$ 50,00",
+    category: "camiseta",
+  },
+  {
+    id: 2,
+    src: tshirt,
+    alt: "T-shirt",
+    title: "T-shirt",
+    price: "R$ 50,00",
+    category: "camiseta",
+  },
+  {
+    id: 3,
+    src: tshirt,
+    alt: "T-shirt",
+    title: "T-shirt",
+    price: "R$ 50,00",
+    category: "camiseta",
+  },
+  {
+    id: 4,
+    src: tshirt,
+    alt: "T-shirt",
+    title: "T-shirt",
+    price: "R$ 50,00",
+    category: "camiseta",
+  },
+];
 
 export default function Home() {
   return (
     <>
       <main className="container">
         <div className="grid grid-main">
-          <div className="container grid-item">
-            <img src={tshirt} alt="t-shirt" />
-            <h2>Camiseta 1</h2>
-            <p>R$ XX,YY</p>
-          </div>
-          <div className="container grid-item">
-            <img src={tshirt} alt="t-shirt" />
-            <h2>Camiseta 2</h2>
-            <p>R$ XX,YY</p>
-          </div>
-          <div className="container grid-item">
-            <img src={tshirt} alt="t-shirt" />
-            <h2>Camiseta 3</h2>
-            <p>R$ XX,YY</p>
-          </div>
-          <div className="container grid-item">
-            <img src={tshirt} alt="t-shirt" />
-            <h2>Camiseta 4</h2>
-            <p>R$ XX,YY</p>
-          </div>
-          <div className="container grid-item">
-            <img src={tshirt} alt="t-shirt" />
-            <h2>Camiseta 5</h2>
-            <p>R$ XX,YY</p>
-          </div>
-          <div className="container grid-item">
-            <img src={tshirt} alt="t-shirt" />
-            <h2>Camiseta 6</h2>
-            <p>R$ XX,YY</p>
-          </div>
-          <div className="container grid-item">
-            <img src={tshirt} alt="t-shirt" />
-            <h2>Camiseta 7</h2>
-            <p>R$ XX,YY</p>
-          </div>
+          {items.map((item) => (
+            <CardItem key={item.id} {...item} />
+          ))}
         </div>
       </main>
     </>
