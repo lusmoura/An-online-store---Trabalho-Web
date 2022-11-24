@@ -1,8 +1,10 @@
-import logo from "../assets/logo.svg";
-import brusinhas from "../assets/brusinhas.svg";
-import cart from "../assets/cart_icon.svg";
-import profile from "../assets/profile_icon.svg";
+import logo from "../../assets/logo.svg";
+import brusinhas from "../../assets/brusinhas.svg";
+import cart from "../../assets/cart_icon.svg";
+import profile from "../../assets/profile_icon.svg";
 import HeaderButton from "./HeaderButton";
+
+import "./style.css";
 
 export default function Header() {
   return (

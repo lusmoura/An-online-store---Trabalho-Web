@@ -1,0 +1,13 @@
+.filled-button {
+    padding: 10px 20px;
+    border: none;
+    background: #820065;
+    border-radius: 5px;
+    color: white;
+    font-family: Raleway;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: center;
+  }
