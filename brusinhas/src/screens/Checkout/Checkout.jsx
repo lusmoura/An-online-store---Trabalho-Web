@@ -1,23 +1,23 @@
 import FilledButton from '../../components/FilledButton/FilledButton'
 import TextField from '../../components/TextField/TextField'
-import "./style.css";
+// import "./style.css";
 
 export default function Checkout() {
     const num_items = 2;
     const price = 'R$ 100,00';
 
     return (
-    <div className="checkout-outer">
-      <div className="checkout-inner">
-        <h1 className="checkout-page-title">Sacola</h1>
-        <div className='purchase-info'>
+    <div className="checkout-outer mt-12 flex justify-center items-center flex-col w-full h-full">
+      <div className="checkout-inner p-8 w-[90%] bg-gray-100">
+        <h1 className="checkout-page-title text-4xl font-bold tracking-normal mb-2 font-raleway">Sacola</h1>
+        <div className='purchase-info mb-5'>
           <p className='num-items'>{`Itens: ${num_items}`}</p>
-          <p className='total-price'>{`Total: ${price}}`}</p>
+          <p className='total-price'>{`Total: ${price}`}</p>
         </div>
         <hr/>
         <div className='checkout-address'>
-          <h2 className='checkout-page-subtitle'>Entrega</h2>
-          <div className="checkout-address-form">
+          <h2 className='checkout-page-subtitle text-4xl font-bold tracking-normal mb-0 font-relaway'>Entrega</h2>
+          <div className="checkout-address-form flex justify-between items-end flex-row">
             <TextField
             label="CEP"
             type="text"
@@ -43,8 +43,8 @@ export default function Checkout() {
         </div>
         <hr/>
         <div className="checkout-payment">
-          <h2 className="checkout-page-subtitle">Pagamento</h2>
-          <div className="checkout-payment-form">
+          <h2 className="checkout-page-subtitle text-4xl font-bold tracking-normal mb-0 font-relaway">Pagamento</h2>
+          <div className="checkout-payment-form flex justify-between items-end flex-row">
             <TextField
             label="Nome do titular"
             type="nome"
