@@ -1,8 +1,6 @@
 import FilledButton from "../../components/FilledButton/FilledButton";
 import TextField from "../../components/TextField/TextField";
 
-import "./style.css";
-
 export default function Signup() {
   return (
     <div className="signup-outer">
