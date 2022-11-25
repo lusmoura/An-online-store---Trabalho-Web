@@ -1,14 +1,12 @@
 import github_icon from "../../assets/github_icon.svg";
 
-import "./style.css";
-
 export default function Footer() {
   return (
-    <div className="footer">
-      <div className="footer-container">
-        <div className="footer-left">
-          <p>© 2022 Brusinhas, Inc. </p>
-          <p>Nenhum direito reservado</p>
+    <div className="footer w-full bg-pink-900 text-white text-center h-20">
+      <div className="footer-container flex justify-between items-center h-20 px-[10px] py-[40px]">
+        <div className="footer-left text-lg">
+          <p className="m-0 text-center">© 2022 Brusinhas, Inc. </p>
+          <p className="m-0 text-center">Nenhum direito reservado</p>
         </div>
         <div className="footer-right">
           <a
