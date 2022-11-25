@@ -6,7 +6,7 @@ import HeaderButton from "./HeaderButton";
 
 export default function Header() {
   return (
-    <div className="header w-full h-20 flex justify-between items-center mb-24 bg-pink-900 px-[10px] py-[40px]">
+    <div className="header w-full h-20 flex justify-between items-center bg-pink-900 px-[10px] py-[40px]">
       <div className="header-container flex justify-between items-center w-full">
         <div className="header-left flex justify-start items-center flex-1">
           <img src={logo} alt="logo" className="mr-8" />
