@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import tshirt from "../../assets/t-shirt.png";
 import CardItem from "../../components/CardItem/CardItem";
 
@@ -44,7 +45,9 @@ export default function Home() {
       <main className="container">
         <div className="grid grid-main">
           {items.map((item) => (
-            <CardItem key={item.id} {...item} />
+            <Link key={item.id} to={`/item/${item.id}`}>
+              <CardItem {...item} />
+            </Link>
           ))}
         </div>
       </main>
