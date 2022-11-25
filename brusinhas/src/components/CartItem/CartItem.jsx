@@ -1,17 +1,16 @@
 import ItemCounter from "../ItemCounter/ItemCounter";
-import "./style.css";
 
 export default function CartItem({ src, alt, title, model, size, price }) {
   return (
-    <div className="container">
+    <div className="container flex flex-row justify-between items-center p-10 border-b mt-50 w-full h-full">
       <img src={src} alt={alt} />
       <div className="item-details">
-        <h2 className="item-title">{title}</h2>
-        <p className="item-model">{model}</p>
-        <p className="item-size">{size}</p>
+        <h2 className="item-title text-xl font-bold">{title}</h2>
+        <p className="item-model text-lg font-light">{model}</p>
+        <p className="item-size text-lg font-light">{size}</p>
       </div>
       <ItemCounter/>
-      <h2 className="item-price">{price}</h2>
+      <h2 className="item-price text-lg font-light">{price}</h2>
     </div>
   );
 }
