@@ -18,8 +18,8 @@ export default function Header() {
           <HeaderButton label="Estilosah" />
         </div>
         <div className="header-right w-1/5 flex justify-end">
-          <img src={cart} alt="cart" className="ml-8" />
-          <img src={profile} alt="profile" className="ml-8" />
+          <img src={cart} alt="cart" className="mx-[20px]" />
+          <img src={profile} alt="profile" className="mx-[20px]" />
         </div>
       </div>
     </div>
