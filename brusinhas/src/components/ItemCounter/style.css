@@ -1,0 +1,16 @@
+.item-counter-outer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 43px;
+}
+
+.item-count {
+    width: 100px;
+    height: 100%;
+    background-color: #D9D9D9;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

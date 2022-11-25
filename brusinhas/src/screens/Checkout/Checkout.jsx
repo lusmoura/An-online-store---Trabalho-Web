@@ -3,15 +3,16 @@ import TextField from '../../components/TextField/TextField'
 import "./style.css";
 
 export default function Checkout() {
-    let num_items = 2;
-    let price = 80.00;
+    const num_items = 2;
+    const price = 'R$ 100,00';
+
     return (
     <div className="checkout-outer">
       <div className="checkout-inner">
         <h1 className="checkout-page-title">Sacola</h1>
         <div className='purchase-info'>
           <p className='num-items'>{`Itens: ${num_items}`}</p>
-          <p className='total-price'>{`Total: R$ ${price}`}</p>
+          <p className='total-price'>{`Total: ${price}}`}</p>
         </div>
         <hr/>
         <div className='checkout-address'>
