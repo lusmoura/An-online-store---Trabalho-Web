@@ -4,28 +4,34 @@ import cart from "../../assets/cart_icon.svg";
 import profile from "../../assets/profile_icon.svg";
 import HeaderButton from "./HeaderButton";
 import { Link } from "react-router-dom";
+import ClickableIcon from "../ClickableIcon/ClickableIcon";
 
 export default function Header({ isAdmin = false }) {
   return (
-    <div className="header w-full h-20 flex justify-between items-center bg-pink-900 px-[10px] py-[40px]">
+    <div className="header w-full h-20 flex justify-between items-center bg-primary px-[10px] py-[40px]">
       <div className="header-container flex justify-between items-center w-full">
         <div className="header-left flex justify-start items-center flex-1">
-          <img src={logo} alt="logo" className="mr-8" />
-          <img src={brusinhas} alt="brusinhas" className="mr-8" />
-          <Link to='/'>
+          <Link to="/">
+            <img src={logo} alt="logo" className="mr-8" />
+          </Link>
+
+          <Link to="/">
+            <img src={brusinhas} alt="brusinhas" className="mr-8" />
+          </Link>
+          <Link to="/">
             <HeaderButton label="Todas" />
           </Link>
-          <Link to='/'>
+          <Link to="/">
             <HeaderButton label="Camiseta" />
           </Link>
-          <Link to='/'>
-          <HeaderButton label="Regata" />
+          <Link to="/">
+            <HeaderButton label="Regata" />
           </Link>
-          <Link to='/'>
-          <HeaderButton label="Linha Básica" />
+          <Link to="/">
+            <HeaderButton label="Linha Básica" />
           </Link>
-          <Link to='/'>
-          <HeaderButton label="Estilosah" />
+          <Link to="/">
+            <HeaderButton label="Estilosah" />
           </Link>
         </div>
         <div className="header-right w-1/5 flex justify-end">
@@ -35,8 +41,18 @@ export default function Header({ isAdmin = false }) {
               <HeaderButton label="Gerenciar users" />{" "}
             </>
           ) : null}
-          <img src={cart} alt="cart" className="mx-[20px]" />
-          <img src={profile} alt="profile" className="mx-[20px]" />
+          <div className="flex gap-4 mx-[20px]">
+            <Link to="/cart">
+              <ClickableIcon src={cart} alt="cart" className="mx-[20px]" />
+            </Link>
+            <Link to="/profile">
+              <ClickableIcon
+                src={profile}
+                alt="profile"
+                className="mx-[20px]"
+              />
+            </Link>
+          </div>
         </div>
       </div>
     </div>

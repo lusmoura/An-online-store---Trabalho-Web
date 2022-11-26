@@ -15,7 +15,7 @@ const items = [
 
 export default function ItemManager() {
   return (
-    <table className="table-auto rounded border-2 ">
+    <table className="table-auto rounded border-2 w-2/5">
       {/* table header */}
       <thead className="border-b-2">
         <tr>
