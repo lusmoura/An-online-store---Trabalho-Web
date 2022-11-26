@@ -57,7 +57,7 @@ export default function Signup({ setAuth, users, setUsers }) {
         </h1>
         <div className="signup-fields-container flex justify-center items-stretch flex-col px-[20px] py-[20px] bg-gray-100 rounded-2xl">
           <TextField
-            label="Seu nome"
+            label="Seu nome *"
             type="name"
             name="name"
             placeholder="Maria da Silva"
@@ -65,7 +65,7 @@ export default function Signup({ setAuth, users, setUsers }) {
             onChange={handleChange}
           />
           <TextField
-            label="Endereço"
+            label="Endereço *"
             type="address"
             name="address"
             placeholder="Rua dos Alfreneiros, 4"
@@ -73,7 +73,7 @@ export default function Signup({ setAuth, users, setUsers }) {
             onChange={handleChange}
           />
           <TextField
-            label="Endereço de e-mail"
+            label="Endereço de e-mail *"
             type="email"
             name="email"
             placeholder="xxx@xxx.xxx"
@@ -81,7 +81,7 @@ export default function Signup({ setAuth, users, setUsers }) {
             onChange={handleChange}
           />
           <TextField
-            label="Telefone"
+            label="Telefone *"
             type="phone"
             name="phone"
             placeholder="(xx) xxxxx-xxxx"
@@ -89,7 +89,7 @@ export default function Signup({ setAuth, users, setUsers }) {
             onChange={handleChange}
           />
           <TextField
-            label="Senha"
+            label="Senha *"
             type="password"
             name="password"
             placeholder="****"
@@ -97,7 +97,7 @@ export default function Signup({ setAuth, users, setUsers }) {
             onChange={handleChange}
           />
           <TextField
-            label="Confirme sua senha"
+            label="Confirme sua senha *"
             type="password"
             name="confirmPassword"
             placeholder="****"

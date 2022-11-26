@@ -62,40 +62,44 @@ export default function Profile({ auth, users, setUsers, setAuth }) {
           <h2 className="profile-page-subtitle text-4xl font-bold tracking-normal mb-2 font-raleway">
             Dados
           </h2>
-          <div className="profile-data-form flex justify-between items-center flex-row">
+          <form className="profile-data-form flex justify-between items-center flex-row">
             <TextField
-              label="Nome"
+              label="Nome *"
               type="nome"
               placeholder="Maria da Silva"
               value={form.name}
               name="name"
               onChange={handleChange}
+              required
             />
             <TextField
-              label="Telefone"
+              label="Telefone *"
               type="text"
               placeholder="(xx) xxxxx-xxxx"
               value={form.phone}
               name="phone"
               onChange={handleChange}
+              required
             />
             <TextField
-              label="E-mail"
+              label="E-mail *"
               type="email"
               placeholder="xxx@xxx.xxx"
               value={form.email}
               name="email"
               onChange={handleChange}
+              required
             />
             <TextField
-              label="Senha"
+              label="Senha *"
               type="password"
               placeholder="********"
               value={form.password}
               name="password"
               onChange={handleChange}
+              required
             />
-          </div>
+          </form>
         </div>
         <hr />
         <div className="profile-address">
@@ -104,20 +108,22 @@ export default function Profile({ auth, users, setUsers, setAuth }) {
           </h2>
           <div className="profile-address-form flex justify-between items-center flex-row">
             <TextField
-              label="Endereço"
+              label="Endereço *"
               type="text"
               placeholder="Rua das Flores, 123"
               value={form.address}
               name="address"
               onChange={handleChange}
+              required
             />
             <TextField
-              label="Destinatário"
+              label="Destinatário * "
               type="text"
               name="receiver"
               placeholder="Maria da Silva"
               value={form.receiver}
               onChange={handleChange}
+              required
             />
           </div>
         </div>
