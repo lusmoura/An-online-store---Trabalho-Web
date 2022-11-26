@@ -48,6 +48,7 @@ export default function Login({ setAuth, users }) {
         </h1>
         <div className="login-fields-container flex justify-center items-stretch flex-col px-[20px] py-[20px] rounded-2xl bg-gray-100">
           <TextField
+            required
             label="Endereço de e-mail"
             type="email"
             placeholder="xxx@xxx.xxx"
@@ -57,6 +58,7 @@ export default function Login({ setAuth, users }) {
             }}
           />
           <TextField
+            required
             label="Sua senha"
             type="password"
             placeholder="****"
