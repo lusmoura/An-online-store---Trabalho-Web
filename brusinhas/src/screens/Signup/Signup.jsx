@@ -3,7 +3,7 @@ import TextField from "../../components/TextField/TextField";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
 export default function Signup({ setAuth, users, setUsers }) {
   const navigate = useNavigate();
 
@@ -28,19 +28,26 @@ export default function Signup({ setAuth, users, setUsers }) {
 
     for (const property in form) {
       if (form[property] === "") {
-        alert("Preencha todos os campos");
+        toast("Preencha todos os campos!", {
+          type: "warning",
+          position: "bottom-center",
+        });
         return;
       }
     }
 
     if (form.password !== form.confirmPassword) {
-      alert("Senhas não conferem");
+      toast("Senhas não conferem", {
+        type: "warning",
+        position: "bottom-center",
+      });
       return;
     }
 
     setAuth({
       isAdmin: false,
       receiver: form.name,
+      loggedIn: true,
       ...form,
     });
 

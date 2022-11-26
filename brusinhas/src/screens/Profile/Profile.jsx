@@ -3,6 +3,7 @@ import FilledButton from "../../components/FilledButton/FilledButton";
 import TextField from "../../components/TextField/TextField";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Profile({ auth, users, setUsers, setAuth }) {
   const navigate = useNavigate();
@@ -28,12 +29,29 @@ export default function Profile({ auth, users, setUsers, setAuth }) {
     });
   }
 
+  function handleLogout(event) {
+    event.preventDefault();
+    setAuth({
+      name: "",
+      email: "",
+      password: "",
+      phone: "",
+      address: "",
+      receiver: "",
+      loggedIn: false,
+    });
+    navigate("/login");
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
 
     for (const property in form) {
       if (form[property] === "") {
-        alert("Preencha todos os campos");
+        toast("Preencha todos os campos", {
+          style: "warning",
+          position: "bottom-center",
+        });
         return;
       }
     }
@@ -50,10 +68,15 @@ export default function Profile({ auth, users, setUsers, setAuth }) {
       users[index] = form;
       return users;
     });
+
+    toast("Dados atualizados com sucesso", {
+      type: "success",
+      position: "bottom-center",
+    });
   }
 
   return (
-    <div className="profile-outer mt-12 flex justify-center items-center flex-col w-full h-full">
+    <div className="profile-outer mt-12 gap-12 flex justify-center items-center flex-col w-full h-full">
       <div className="profile-inner p-8 bg-gray-100 w-[90%]">
         <h1 className="profile-page-title text-4xl font-bold tracking-normal mb-10 font-raleway">
           Perfil
@@ -128,7 +151,10 @@ export default function Profile({ auth, users, setUsers, setAuth }) {
           </div>
         </div>
       </div>
-      <FilledButton label="Salvar" onClick={handleSubmit} />
+      <div className="flex gap-3">
+        <FilledButton label="Salvar" onClick={handleSubmit} />
+        <FilledButton label="Fazer logout" onClick={handleLogout} />
+      </div>
     </div>
   );
 }

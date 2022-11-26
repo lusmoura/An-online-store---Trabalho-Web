@@ -1,3 +1,4 @@
+import { centsToReal } from "../../utils";
 import "./style.css";
 
 export default function CardItem({ src, alt, title, price }) {
@@ -5,7 +6,7 @@ export default function CardItem({ src, alt, title, price }) {
     <div className="container grid-item">
       <img src={src} alt={alt} />
       <h2>{title}</h2>
-      <p>{price}</p>
+      <p>{centsToReal(price)}</p>
     </div>
   );
 }

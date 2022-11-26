@@ -8,7 +8,7 @@ function addItem() {
     src: tshirt,
     alt: "T-shirt",
     title: "T-shirt 1",
-    price: "R$ 50,00",
+    price: 5000,
     category: "camiseta",
     models: [
       {
@@ -67,7 +67,7 @@ var mock = {
       src: tshirt,
       alt: "T-shirt",
       title: "T-shirt 1",
-      price: "R$ 50,00",
+      price: 5000,
       category: "camiseta",
       models: [
         {
@@ -105,7 +105,7 @@ var mock = {
       src: tshirt,
       alt: "T-shirt",
       title: "T-shirt 2",
-      price: "R$ 50,00",
+      price: 5000,
       category: "camiseta",
       models: [
         {
@@ -143,7 +143,7 @@ var mock = {
       src: tshirt,
       alt: "T-shirt",
       title: "T-shirt 3",
-      price: "R$ 50,00",
+      price: 5000,
       category: "regata",
       models: [
         {

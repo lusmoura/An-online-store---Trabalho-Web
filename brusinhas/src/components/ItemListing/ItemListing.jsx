@@ -3,11 +3,12 @@ import FilledButton from "../FilledButton/FilledButton";
 
 import editIcon from "../../assets/pencil.svg";
 import ClickableIcon from "../ClickableIcon/ClickableIcon";
-
+import { useNavigate } from "react-router-dom";
 import ItemCounter from "../ItemCounter/ItemCounter";
 import { mock } from "../../mock";
-import possibleSizes from "../../utils";
+import { centsToReal, possibleSizes } from "../../utils";
 import { useEffect, useState, useRef } from "react";
+import { toast } from "react-toastify";
 
 function fetchItem(id) {
   return mock.items.find((item) => String(item.id) === id);
@@ -41,7 +42,8 @@ function updateItemMetadata(id, name, price, description) {
   mock.items[idx].description = description;
 }
 
-export default function ItemListing({ id, isAdmin }) {
+export default function ItemListing({ id, auth, addToCart }) {
+  const navigate = useNavigate();
   let [fetchedItem, setItem] = useState(fetchItem(id));
 
   const [name, setName] = useState(fetchedItem.name);
@@ -50,7 +52,20 @@ export default function ItemListing({ id, isAdmin }) {
 
   const [selectedModel, setSelectedModel] = useState(fetchedItem.models[0]);
   const [selectedSize, setSelectedSize] = useState(selectedModel.sizes[0].size);
-  const [count, setCount] = useState(fetchedItem.models[0].sizes[0].quantity);
+  const [count, setCount] = useState(1);
+
+  let isAdmin = auth.isAdmin;
+
+  const handleAddToCart = () => {
+    toast("Item adicionado ao carrinho", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      type: "success",
+    });
+    addToCart(fetchedItem.id, selectedModel.type, selectedSize, count);
+  };
 
   useEffect(() => {
     setItem(fetchItem(id));
@@ -158,7 +173,9 @@ export default function ItemListing({ id, isAdmin }) {
               value={price}
             />
           ) : (
-            <p className="text-lg font-bold w-auto">{fetchedItem.price}</p>
+            <p className="text-lg font-bold w-auto">
+              {centsToReal(fetchedItem.price)}
+            </p>
           )}
 
           {isAdmin && (
@@ -235,7 +252,7 @@ export default function ItemListing({ id, isAdmin }) {
           <h3 className="m-1">Quantidade</h3>
           <ItemCounter
             count={count}
-            handleMinus={() => {
+            handleDecrease={() => {
               if (isAdmin) {
                 setCount(Math.max(0, count - 1));
                 return;
@@ -255,7 +272,7 @@ export default function ItemListing({ id, isAdmin }) {
 
               setCount(Math.max(1, count - 1));
             }}
-            handlePlus={() => {
+            handleIncrease={() => {
               if (isAdmin) {
                 setCount(Math.min(100, count + 1));
                 return;
@@ -279,8 +296,17 @@ export default function ItemListing({ id, isAdmin }) {
         </div>
         {!isAdmin && (
           <div className="flex gap-3">
-            <FilledButton label="Comprar agora" />
-            <FilledButton label="Adicionar ao carrinho" />
+            <FilledButton
+              label="Comprar agora"
+              onClick={() => {
+                handleAddToCart();
+                navigate("/cart");
+              }}
+            />
+            <FilledButton
+              onClick={handleAddToCart}
+              label="Adicionar ao carrinho"
+            />
           </div>
         )}
       </div>

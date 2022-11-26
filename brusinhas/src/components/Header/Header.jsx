@@ -6,11 +6,15 @@ import HeaderButton from "./HeaderButton";
 import { Link } from "react-router-dom";
 import ClickableIcon from "../ClickableIcon/ClickableIcon";
 
-export default function Header({ isAdmin = false, setCategory = () => {} }) {
+export default function Header({
+  isLoggedIn = false,
+  isAdmin = false,
+  setCategory = () => {},
+}) {
   return (
-    <div className="header w-full h-20 flex justify-between items-center bg-primary px-[10px] py-[40px]">
-      <div className="header-container flex justify-between items-center w-full">
-        <div className="header-left flex justify-start items-center flex-1">
+    <div className="header h-20 w-full flex justify-between items-center bg-primary px-[10px] py-[40px]">
+      <div className="header-container w-full flex items-center">
+        <div className="header-left flex justify-start">
           <Link onClick={() => setCategory("all")} to="/">
             <img src={logo} alt="logo" className="mr-8" />
           </Link>
@@ -41,8 +45,8 @@ export default function Header({ isAdmin = false, setCategory = () => {} }) {
             />
           </Link>
         </div>
-        <div className="header-right w-1/5 flex justify-end">
-          {isAdmin ? (
+        <div className="header-right ml-auto flex items-center">
+          {isLoggedIn && isAdmin && (
             <>
               <Link to="/admin/users">
                 <HeaderButton label="Gerenciar users" />
@@ -51,19 +55,34 @@ export default function Header({ isAdmin = false, setCategory = () => {} }) {
                 <HeaderButton label="Gerenciar itens" />
               </Link>
             </>
-          ) : null}
-          <div className="flex gap-4 mx-[20px]">
+          )}
+          <div className="flex gap-6 justify-center items-center">
             <Link to="/cart">
               <ClickableIcon src={cart} alt="cart" className="mx-[20px]" />
             </Link>
-            <Link to="/profile">
-              <ClickableIcon
-                src={profile}
-                alt="profile"
-                className="mx-[20px]"
-              />
-            </Link>
+            {!isLoggedIn && (
+              <div className="flex">
+                <Link to="/login">
+                  <HeaderButton label="Fazer login" />
+                </Link>
+                <Link to="/signup">
+                  <HeaderButton label="Register" />
+                </Link>
+              </div>
+            )}
           </div>
+
+          {isLoggedIn && (
+            <div className="flex gap-4 mx-[20px]">
+              <Link to="/profile">
+                <ClickableIcon
+                  src={profile}
+                  alt="profile"
+                  className="mx-[20px]"
+                />
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

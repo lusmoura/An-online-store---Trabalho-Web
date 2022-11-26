@@ -3,8 +3,8 @@ import FilledButton from "../FilledButton/FilledButton";
 
 export default function ItemCounter({
   count = 1,
-  handleMinus: handleDecrease = () => {},
-  handlePlus: handleIncrease = () => {},
+  handleDecrease = () => {},
+  handleIncrease = () => {},
 }) {
   return (
     <div className="item-counter-outer flex flex-row items-center h-10">

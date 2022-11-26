@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { toast } from "react-toastify";
+
 export default function Login({ setAuth, users }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -13,7 +15,6 @@ export default function Login({ setAuth, users }) {
   function handleSubmit(e) {
     e.preventDefault();
     const user = users.find((user) => user.email === email);
-    console.log(user.email);
 
     if (user && user.password === password) {
       setAuth({
@@ -24,10 +25,18 @@ export default function Login({ setAuth, users }) {
         phone: user.phone,
         address: user.address,
         receiver: user.receiver,
+        loggedIn: true,
       });
       navigate("/");
+      toast("Login efetuado com sucesso", {
+        position: "bottom-center",
+        type: "success",
+      });
     } else {
-      alert("Usuário não encontrado");
+      toast("Usuário não encontrado", {
+        type: "error",
+        position: "bottom-center",
+      });
     }
   }
 

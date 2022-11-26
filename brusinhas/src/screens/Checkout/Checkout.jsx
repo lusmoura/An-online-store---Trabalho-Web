@@ -1,9 +1,12 @@
 import FilledButton from "../../components/FilledButton/FilledButton";
 import TextField from "../../components/TextField/TextField";
+import { centsToReal } from "../../utils";
 
-export default function Checkout() {
-  const num_items = 2;
-  const price = "R$ 100,00";
+export default function Checkout({ cartItems }) {
+  const num_items = cartItems.length;
+  const price = centsToReal(
+    cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
+  );
 
   return (
     <div className="checkout-outer mt-12 flex justify-center items-center flex-col w-full h-full">
