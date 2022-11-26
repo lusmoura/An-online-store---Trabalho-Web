@@ -19,25 +19,25 @@ export default function Header({ isAdmin = false, setCategory = () => {} }) {
             <img src={brusinhas} alt="brusinhas" className="mr-8" />
           </Link>
           <Link to="/">
-          <HeaderButton label="Todas" onClick={() => setCategory("all")} />
+            <HeaderButton label="Todas" onClick={() => setCategory("all")} />
           </Link>
           <Link to="/">
-          <HeaderButton
-            label="Camiseta"
-            onClick={() => setCategory("camiseta")}
+            <HeaderButton
+              label="Camiseta"
+              onClick={() => setCategory("camiseta")}
             />
           </Link>
           <HeaderButton label="Regata" onClick={() => setCategory("regata")} />
           <Link to="/">
-          <HeaderButton
-            label="Linha Básica"
-            onClick={() => setCategory("basica")}
+            <HeaderButton
+              label="Linha Básica"
+              onClick={() => setCategory("basica")}
             />
           </Link>
           <Link to="/">
-          <HeaderButton
-            label="Estilosah"
-            onClick={() => setCategory("estilosah")}
+            <HeaderButton
+              label="Estilosah"
+              onClick={() => setCategory("estilosah")}
             />
           </Link>
         </div>

@@ -15,7 +15,7 @@ import { mock } from "./mock";
 
 function App() {
   const [category, setCategory] = useState("all");
-  const [auth, setAuth] = useState({"email":"", "password":"", "isAdmin":false});
+  const [auth, setAuth] = useState({ email: "", password: "", isAdmin: false });
   const [users, setUsers] = useState(mock.users);
   console.log(auth);
   console.log(setUsers);
@@ -26,12 +26,33 @@ function App() {
         <Header isAdmin={auth.isAdmin} id="header" setCategory={setCategory} />
         <Routes>
           <Route path="/" exact element={<Home category={category} />} />
-          <Route path="/signup" exact element={<Signup users={users} setUsers={setUsers} setAuth={setAuth} />} />
-          <Route path="/login" exact element={<Login setAuth={setAuth} users={users}/>} />
+          <Route
+            path="/signup"
+            exact
+            element={
+              <Signup users={users} setUsers={setUsers} setAuth={setAuth} />
+            }
+          />
+          <Route
+            path="/login"
+            exact
+            element={<Login setAuth={setAuth} users={users} />}
+          />
           <Route path="/cart" exact element={<Cart />} />
           <Route path="/checkout" exact element={<Checkout />} />
           <Route path="/item/:id" exact element={<Item />} />
-          <Route path="/profile" exact element={<Profile auth={auth} setAuth={setAuth} users={users} setUsers={setUsers} />} />
+          <Route
+            path="/profile"
+            exact
+            element={
+              <Profile
+                auth={auth}
+                setAuth={setAuth}
+                users={users}
+                setUsers={setUsers}
+              />
+            }
+          />
           <Route path="/admin/users" element={<ManageUsers />} />
           <Route path="/admin/items" element={<ManageItems />} />
 

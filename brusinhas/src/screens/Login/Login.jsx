@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function Login({ setAuth, users}) {
+export default function Login({ setAuth, users }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,9 +14,17 @@ export default function Login({ setAuth, users}) {
     e.preventDefault();
     const user = users.find((user) => user.email === email);
     console.log(user.email);
-    
+
     if (user && user.password === password) {
-      setAuth({"email": user.email, "isAdmin": user.isAdmin, "password": user.password, "name": user.name, "phone": user.phone, "address": user.address, "receiver": user.receiver});
+      setAuth({
+        email: user.email,
+        isAdmin: user.isAdmin,
+        password: user.password,
+        name: user.name,
+        phone: user.phone,
+        address: user.address,
+        receiver: user.receiver,
+      });
       navigate("/");
     } else {
       alert("Usuário não encontrado");
@@ -35,18 +43,22 @@ export default function Login({ setAuth, users}) {
             type="email"
             placeholder="xxx@xxx.xxx"
             value={email}
-            onChange={(event) => {setEmail(event.target.value)}}
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
           />
           <TextField
             label="Sua senha"
             type="password"
             placeholder="****"
             value={password}
-            onChange={(event) => {setPassword(event.target.value)}}
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
           />
           <div className="login-fields-container-footer flex justify-between items-center flex-row py-[10px]">
             <Checkbox />
-            <FilledButton label="Fazer login" onClick={handleSubmit}/>
+            <FilledButton label="Fazer login" onClick={handleSubmit} />
           </div>
         </div>
         <div className="login-footer flex justify-between items-center flex-row py-[40px]">

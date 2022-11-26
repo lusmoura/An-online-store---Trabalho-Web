@@ -13,27 +13,27 @@ export default function Signup({ setAuth, users, setUsers }) {
     password: "",
     confirmPassword: "",
     phone: "",
-    address: ""
+    address: "",
   });
 
   function handleChange(event) {
     setForm({
       ...form,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   }
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    for(const property in form) {
-      if(form[property] === '') {
+    for (const property in form) {
+      if (form[property] === "") {
         alert("Preencha todos os campos");
         return;
       }
     }
 
-    if(form.password !== form.confirmPassword) {
+    if (form.password !== form.confirmPassword) {
       alert("Senhas não conferem");
       return;
     }
@@ -41,15 +41,13 @@ export default function Signup({ setAuth, users, setUsers }) {
     setAuth({
       isAdmin: false,
       receiver: form.name,
-      ...form
+      ...form,
     });
 
-    setUsers([
-      ...users,
-      form]);
+    setUsers([...users, form]);
 
     navigate("/");
-    }
+  }
 
   return (
     <div className="signup-outer flex items-center flex-col w-full h-full">
@@ -108,7 +106,7 @@ export default function Signup({ setAuth, users, setUsers }) {
           />
 
           <div className="signup-fields-container-footer flex justify-end items-end flex-row py-[20px]">
-            <FilledButton label="Fazer cadastro"  onClick={handleSubmit} />
+            <FilledButton label="Fazer cadastro" onClick={handleSubmit} />
           </div>
         </div>
         <div className="signup-footer flex justify-between items-center flex-row py-[40px]">

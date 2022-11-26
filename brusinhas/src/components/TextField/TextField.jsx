@@ -4,7 +4,7 @@ export default function TextField({
   placeholder,
   value,
   onChange,
-  name
+  name,
 }) {
   return (
     <div className="text-field-container flex justify-center items-start flex-col px-[20px] flex-1 my-[10px]">

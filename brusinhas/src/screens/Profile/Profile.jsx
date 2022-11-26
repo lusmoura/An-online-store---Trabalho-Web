@@ -4,7 +4,7 @@ import TextField from "../../components/TextField/TextField";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-export default function Profile({auth, users, setUsers, setAuth}) {
+export default function Profile({ auth, users, setUsers, setAuth }) {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: auth.name,
