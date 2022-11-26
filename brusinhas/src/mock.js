@@ -86,7 +86,7 @@ var mock = {
       alt: "T-shirt",
       title: "T-shirt 3",
       price: "R$ 50,00",
-      category: "camiseta",
+      category: "regata",
       models: [
         {
           type: "Tradicional",

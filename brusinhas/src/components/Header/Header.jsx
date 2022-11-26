@@ -6,7 +6,7 @@ import HeaderButton from "./HeaderButton";
 import { Link } from "react-router-dom";
 import ClickableIcon from "../ClickableIcon/ClickableIcon";
 
-export default function Header({ isAdmin = false }) {
+export default function Header({ isAdmin = false, setCategory = () => {} }) {
   return (
     <div className="header w-full h-20 flex justify-between items-center bg-primary px-[10px] py-[40px]">
       <div className="header-container flex justify-between items-center w-full">
@@ -18,21 +18,20 @@ export default function Header({ isAdmin = false }) {
           <Link to="/">
             <img src={brusinhas} alt="brusinhas" className="mr-8" />
           </Link>
-          <Link to="/">
-            <HeaderButton label="Todas" />
-          </Link>
-          <Link to="/">
-            <HeaderButton label="Camiseta" />
-          </Link>
-          <Link to="/">
-            <HeaderButton label="Regata" />
-          </Link>
-          <Link to="/">
-            <HeaderButton label="Linha Básica" />
-          </Link>
-          <Link to="/">
-            <HeaderButton label="Estilosah" />
-          </Link>
+          <HeaderButton label="Todas" onClick={() => setCategory("all")} />
+          <HeaderButton
+            label="Camiseta"
+            onClick={() => setCategory("camiseta")}
+          />
+          <HeaderButton label="Regata" onClick={() => setCategory("regata")} />
+          <HeaderButton
+            label="Linha Básica"
+            onClick={() => setCategory("basica")}
+          />
+          <HeaderButton
+            label="Estilosah"
+            onClick={() => setCategory("estilosah")}
+          />
         </div>
         <div className="header-right w-1/5 flex justify-end">
           {isAdmin ? (

@@ -7,16 +7,17 @@ import Checkout from "./screens/Checkout/Checkout";
 import Home from "./screens/Home/Home";
 import Item from "./screens/Item/Item";
 import Profile from "./screens/Profile/Profile";
-
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-
 function App() {
+  const [category, setCategory] = useState("all");
+
   return (
     <div id="app">
       <div id="app-content">
-        <Header id="header" />
+        <Header id="header" setCategory={setCategory} />
         <Routes>
-          <Route path="/" exact element={<Home />} />
+          <Route path="/" exact element={<Home category={category} />} />
           <Route path="/signup" exact element={<Signup />} />
           <Route path="/login" exact element={<Login />} />
           <Route path="/cart" exact element={<Cart />} />

@@ -4,17 +4,21 @@ import mock from "../../mock";
 
 import "./style.css";
 
-export default function Home() {
+export default function Home({ category }) {
   let items = mock.items;
   return (
     <>
       <main className="container">
         <div className="grid grid-main">
-          {items.map((item) => (
-            <Link key={item.id} to={`/item/${item.id}`}>
-              <CardItem {...item} />
-            </Link>
-          ))}
+          {items.map((item) => {
+            if (item.category === category || category === "all") {
+              return (
+                <Link key={item.id} to={`/item/${item.id}`}>
+                  <CardItem {...item} />
+                </Link>
+              );
+            }
+          })}
         </div>
       </main>
     </>
