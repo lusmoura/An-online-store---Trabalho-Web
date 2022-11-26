@@ -11,27 +11,35 @@ export default function Header({ isAdmin = false, setCategory = () => {} }) {
     <div className="header w-full h-20 flex justify-between items-center bg-primary px-[10px] py-[40px]">
       <div className="header-container flex justify-between items-center w-full">
         <div className="header-left flex justify-start items-center flex-1">
-          <Link to="/">
+          <Link onClick={() => setCategory("all")} to="/">
             <img src={logo} alt="logo" className="mr-8" />
           </Link>
 
-          <Link to="/">
+          <Link onClick={() => setCategory("all")} to="/">
             <img src={brusinhas} alt="brusinhas" className="mr-8" />
           </Link>
-          <HeaderButton label="Todas" onClick={() => setCategory("all")} />
-          <HeaderButton
-            label="Camiseta"
-            onClick={() => setCategory("camiseta")}
-          />
+          <Link to="/">
+            <HeaderButton label="Todas" onClick={() => setCategory("all")} />
+          </Link>
+          <Link to="/">
+            <HeaderButton
+              label="Camiseta"
+              onClick={() => setCategory("camiseta")}
+            />
+          </Link>
           <HeaderButton label="Regata" onClick={() => setCategory("regata")} />
-          <HeaderButton
-            label="Linha Básica"
-            onClick={() => setCategory("basica")}
-          />
-          <HeaderButton
-            label="Estilosah"
-            onClick={() => setCategory("estilosah")}
-          />
+          <Link to="/">
+            <HeaderButton
+              label="Linha Básica"
+              onClick={() => setCategory("basica")}
+            />
+          </Link>
+          <Link to="/">
+            <HeaderButton
+              label="Estilosah"
+              onClick={() => setCategory("estilosah")}
+            />
+          </Link>
         </div>
         <div className="header-right w-1/5 flex justify-end">
           {isAdmin ? (
