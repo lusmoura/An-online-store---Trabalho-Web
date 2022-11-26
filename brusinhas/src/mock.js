@@ -180,22 +180,30 @@ var mock = {
     {
       id: 1,
       name: "André",
+      email: "andre@gmail.com",
+      password: "123456",
       isAdmin: true,
     },
     {
       id: 2,
       name: "David",
+      email: "david@gmail.com",
+      password: "123456",
       isAdmin: false,
     },
     {
       id: 3,
       name: "Thiago",
+      email: "thiago@gmail.com",
+      password: "123456",
       isAdmin: true,
     },
     {
       id: 4,
       name: "Luísa",
-      isAdmin: true,
+      email: "luisa@gmail.com",
+      password: "123456",
+      isAdmin: false,
     },
   ],
 };

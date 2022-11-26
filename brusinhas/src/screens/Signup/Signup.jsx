@@ -1,5 +1,6 @@
 import FilledButton from "../../components/FilledButton/FilledButton";
 import TextField from "../../components/TextField/TextField";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
   return (
@@ -60,7 +61,9 @@ export default function Signup() {
           <p className=" not-italic font-light text-lg leading-6 flex items-center text-center font-raleway">
             Já possui uma conta?
           </p>
-          <FilledButton label="Fazer login!" />
+          <Link to="/login">
+            <FilledButton label="Fazer login!" />
+          </Link>
         </div>
       </div>
     </div>

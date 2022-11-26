@@ -1,7 +1,17 @@
+import { useEffect } from "react";
 import FilledButton from "../../components/FilledButton/FilledButton";
 import TextField from "../../components/TextField/TextField";
+import { useNavigate } from "react-router-dom";
 
-export default function Profile() {
+export default function Profile({auth}) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (auth.email === "") {
+      navigate("/login");
+    }
+  }, []);
+
   return (
     <div className="profile-outer mt-12 flex justify-center items-center flex-col w-full h-full">
       <div className="profile-inner p-8 bg-gray-100 w-[90%]">
