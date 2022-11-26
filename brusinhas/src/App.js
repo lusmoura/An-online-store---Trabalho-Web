@@ -31,7 +31,7 @@ function App() {
           <Route path="/cart" exact element={<Cart />} />
           <Route path="/checkout" exact element={<Checkout />} />
           <Route path="/item/:id" exact element={<Item />} />
-          <Route path="/profile" exact element={<Profile auth={auth} />} />
+          <Route path="/profile" exact element={<Profile auth={auth} setAuth={setAuth} users={users} setUsers={setUsers} />} />
           <Route path="/admin/users" element={<ManageUsers />} />
           <Route path="/admin/items" element={<ManageItems />} />
 

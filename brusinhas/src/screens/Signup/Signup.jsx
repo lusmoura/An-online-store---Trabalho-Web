@@ -39,9 +39,9 @@ export default function Signup({ setAuth, users, setUsers }) {
     }
 
     setAuth({
-      email: form.email,
       isAdmin: false,
-      password: form.password,
+      receiver: form.name,
+      ...form
     });
 
     setUsers([

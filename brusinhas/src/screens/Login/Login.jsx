@@ -16,7 +16,7 @@ export default function Login({ setAuth, users}) {
     console.log(user.email);
     
     if (user && user.password === password) {
-      setAuth({"email": user.email, "isAdmin": user.isAdmin});
+      setAuth({"email": user.email, "isAdmin": user.isAdmin, "password": user.password, "name": user.name, "phone": user.phone, "address": user.address, "receiver": user.receiver});
       navigate("/");
     } else {
       alert("Usuário não encontrado");
