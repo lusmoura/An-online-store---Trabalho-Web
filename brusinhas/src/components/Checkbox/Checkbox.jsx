@@ -4,7 +4,7 @@ export default function Checkbox() {
       <input type="checkbox" className="w-5 h-5 bg-white rounded mr-2" />
       <label
         htmlFor="checkbox"
-        className="not-italic font-light text-lg leading-6 flex items-center text-center font-raleway"
+        className="not-italic font-light text-lg leading-6 flex items-center text-center"
       >
         Lembrar de mim
       </label>
