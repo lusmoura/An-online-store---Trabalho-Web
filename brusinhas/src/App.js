@@ -12,22 +12,22 @@ import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-      <div id="app">
-        <div id="app-content">
-          <Header id="header" />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/item/:id" element={<Item />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="*" element={<h1>404</h1>} />
-          </Routes>
-        </div>
-        <Footer id="footer" />
+    <div id="app">
+      <div id="app-content">
+        <Header id="header" />
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/signup" exact element={<Signup />} />
+          <Route path="/login" exact element={<Login />} />
+          <Route path="/cart" exact element={<Cart />} />
+          <Route path="/checkout" exact element={<Checkout />} />
+          <Route path="/item/:id" exact element={<Item />} />
+          <Route path="/profile" exact element={<Profile />} />
+          <Route path="*" element={<h1>404</h1>} />
+        </Routes>
       </div>
+      <Footer id="footer" />
+    </div>
   );
 }
 
