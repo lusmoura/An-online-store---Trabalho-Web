@@ -4,6 +4,7 @@ export default function TextField({
   placeholder,
   value,
   onChange,
+  name
 }) {
   return (
     <div className="text-field-container flex justify-center items-start flex-col px-[20px] flex-1 my-[10px]">
@@ -15,6 +16,7 @@ export default function TextField({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        name={name}
         className="bg-white rounded box-border w-full placeholder-gray-500 border p-2"
       />
     </div>

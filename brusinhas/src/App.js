@@ -26,7 +26,7 @@ function App() {
         <Header isAdmin={auth.isAdmin} id="header" setCategory={setCategory} />
         <Routes>
           <Route path="/" exact element={<Home category={category} />} />
-          <Route path="/signup" exact element={<Signup />} />
+          <Route path="/signup" exact element={<Signup users={users} setUsers={setUsers} setAuth={setAuth} />} />
           <Route path="/login" exact element={<Login setAuth={setAuth} users={users}/>} />
           <Route path="/cart" exact element={<Cart />} />
           <Route path="/checkout" exact element={<Checkout />} />

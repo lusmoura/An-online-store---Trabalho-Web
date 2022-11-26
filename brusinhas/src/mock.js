@@ -183,6 +183,8 @@ var mock = {
       email: "andre@gmail.com",
       password: "123456",
       isAdmin: true,
+      address: "Rua 1",
+      phone: "123456789",
     },
     {
       id: 2,
@@ -190,6 +192,8 @@ var mock = {
       email: "david@gmail.com",
       password: "123456",
       isAdmin: false,
+      address: "Rua 1",
+      phone: "123456789",
     },
     {
       id: 3,
@@ -197,6 +201,8 @@ var mock = {
       email: "thiago@gmail.com",
       password: "123456",
       isAdmin: true,
+      address: "Rua 1",
+      phone: "123456789",
     },
     {
       id: 4,
@@ -204,6 +210,8 @@ var mock = {
       email: "luisa@gmail.com",
       password: "123456",
       isAdmin: false,
+      address: "Rua 1",
+      phone: "123456789",
     },
   ],
 };
