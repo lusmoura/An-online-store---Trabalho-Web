@@ -147,7 +147,7 @@ function App() {
             exact
             element={
               auth.loggedIn ? (
-                <Checkout cartItems={cartItems} />
+                <Checkout clearCart={() => setCartItems([])} cartItems={cartItems} auth={auth} />
               ) : (
                 <Login setAuth={setAuth} users={users} />
               )
