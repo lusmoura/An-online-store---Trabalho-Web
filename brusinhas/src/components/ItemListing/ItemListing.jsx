@@ -5,7 +5,7 @@ import editIcon from "../../assets/pencil.svg";
 import ClickableIcon from "../ClickableIcon/ClickableIcon";
 
 import ItemCounter from "../ItemCounter/ItemCounter";
-import mock from "../../mock";
+import { mock } from "../../mock";
 import possibleSizes from "../../utils";
 import { useEffect, useState, useRef } from "react";
 

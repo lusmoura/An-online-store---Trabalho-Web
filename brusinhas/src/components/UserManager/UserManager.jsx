@@ -1,31 +1,9 @@
 import { useState } from "react";
 import UserItem from "./UserItem";
-
-const initialUsers = [
-  {
-    id: 1,
-    name: "André",
-    isAdmin: true,
-  },
-  {
-    id: 2,
-    name: "David",
-    isAdmin: false,
-  },
-  {
-    id: 3,
-    name: "Thiago",
-    isAdmin: true,
-  },
-  {
-    id: 4,
-    name: "Luísa",
-    isAdmin: true,
-  },
-];
+import { mock, removeUser, updateUserAdmin } from "../../mock";
 
 export default function UserManager() {
-  const [users, setUsers] = useState(initialUsers);
+  const [users, setUsers] = useState(mock.users);
 
   return (
     <table className="table-fixed rounded border-2 w-2/5">
@@ -56,9 +34,11 @@ export default function UserManager() {
                 return u;
               });
               setUsers(updatedUsers);
+              updateUserAdmin(user.id, !user.isAdmin);
             }}
             handleDelete={() => {
               setUsers(users.filter((u) => u.id !== user.id));
+              removeUser(user.id);
             }}
           />
         ))}

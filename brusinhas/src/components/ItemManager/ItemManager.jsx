@@ -1,19 +1,16 @@
 import Item from "./Item";
 
-const items = [
-  {
-    id: 1,
-    name: "Camiseta manga curta",
-    category: "Camiseta",
-  },
-  {
-    id: 2,
-    name: "Camiseta manga longa",
-    category: "Camiseta",
-  },
-];
+import { mock } from "../../mock";
 
-export default function ItemManager() {
+import { useNavigate } from "react-router-dom";
+
+function removeItem(id) {
+  mock.items = mock.items.filter((item) => item.id !== id);
+}
+
+export default function ItemManager({ items, setItems }) {
+  const navigate = useNavigate();
+
   return (
     <table className="table-auto rounded border-2 w-2/5">
       {/* table header */}
@@ -29,7 +26,18 @@ export default function ItemManager() {
       <tbody className="w-full">
         {/* table body */}
         {items.map((item) => (
-          <Item key={item.id} name={item.name} category={item.category} />
+          <Item
+            key={item.id}
+            name={item.name}
+            category={item.category}
+            handleEdit={() => {
+              navigate(`/item/${item.id}`);
+            }}
+            handleDelete={() => {
+              setItems(items.filter((i) => i.id !== item.id));
+              removeItem(item.id);
+            }}
+          />
         ))}
       </tbody>
     </table>

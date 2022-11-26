@@ -36,8 +36,12 @@ export default function Header({ isAdmin = false, setCategory = () => {} }) {
         <div className="header-right w-1/5 flex justify-end">
           {isAdmin ? (
             <>
-              <HeaderButton label="Gerenciar itens" />
-              <HeaderButton label="Gerenciar users" />{" "}
+              <Link to="/admin/users">
+                <HeaderButton label="Gerenciar users" />
+              </Link>
+              <Link to="/admin/items">
+                <HeaderButton label="Gerenciar itens" />
+              </Link>
             </>
           ) : null}
           <div className="flex gap-4 mx-[20px]">
