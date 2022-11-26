@@ -178,25 +178,16 @@ var mock = {
 
   users: [
     {
-      id: 1,
-      name: "André",
-      email: "andre@gmail.com",
-      password: "123456",
+      id: 0,
+      name: "admin",
+      email: "admin@gmail.com",
+      password: "admin",
       isAdmin: true,
-      address: "Rua 1",
-      phone: "123456789",
+      address: " ",
+      phone: " ",
     },
     {
-      id: 2,
-      name: "David",
-      email: "david@gmail.com",
-      password: "123456",
-      isAdmin: false,
-      address: "Rua 1",
-      phone: "123456789",
-    },
-    {
-      id: 3,
+      id: 1,
       name: "Thiago",
       email: "thiago@gmail.com",
       password: "123456",
@@ -205,7 +196,7 @@ var mock = {
       phone: "123456789",
     },
     {
-      id: 4,
+      id: 2,
       name: "Luísa",
       email: "luisa@gmail.com",
       password: "123456",

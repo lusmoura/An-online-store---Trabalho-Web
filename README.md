@@ -1,6 +1,7 @@
-# An-online-store---Trabalho-Web
+# An online store - Brusinhas
 
 ## Group 2
+
 - Luísa Souza Moura - 10692179
 - Thiago Preischadt Pinheiro  - 10723801
 
@@ -62,12 +63,82 @@ The navigation works as follows:
 
 ## Comments about the code
 
+* Mocks: for now, the users and items are mocked. That means we're not using any type of server to deal with them, they're just being hardcoded into a file and this data is used for all the website flow. 
+* [React](https://reactjs.org/): this framework was used to facilitate the project development.
+* [Tailwind](https://tailwindcss.com/): this CSS framework was used to deal with all the website styling and design. In a simplified way, it works by adding classes to the tags and they represent the css style we want to add to each element.
+* Project organization: to organize the project, we created smaller react components (such as header, footer, buttons and input fields) that were combined to create all the screens we need. The folders are organized as follows:
+```
+.
++-- README.md
++-- mockups
+|   +-- Screens
+|   +-- Images
+|   --- html files
+|   --- css files
++-- brusinhas
+|   --- config files
+|   +-- public
+|       --- index.html
+|       --- manifest.json
+|       --- robots.txt
+|   +-- scr
+|       --- base js and css files
+|       +-- assets
+|           --- images and other assets
+|       +-- components
+|           --- react components
+|       +-- screens
+|           --- website screens
+```
+
 ## Test Plan
+
+The application was built and tested using three browsers:
+* Safari
+* Firefox 
+* Google Chrome
+
+On the main Operational Systems available:
+* Windows
+* Linux (Ubuntu)
+* MacOS
+
+### Users and admins
+
+Since we're mocking the users, to test the functionalities and navigate through the website use one of the following users:
+
+|   | User             | Password | isAdmin |
+|---|------------------|----------|---------|
+| 0 | admin@gmail.com  | admin    |   true  |
+| 1 | thiago@gmail.com | 123456   |   true  |
+| 2 | luisa@gmail.com  | 123456   |  false  |
+
 
 ## Test Results
 
+The website works perfectly, with everything working according to what was proposed. All the pages and components load and render with a short response time, and all the interfaces and features are functional.
+
 ## Build Procedures
+
+1. Install Node.js and npm ([tutorial](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm))
+2. Clone [this repository](https://github.com/lusmoura/An-online-store---Trabalho-Web) locally.
+3. Enter the project folder (`brusinhas`) 
+4. Install all dependencies by running `npm install`
+5. Start local client site instance by running `npm start`  
+    - After that, you'll see a message like the one below. That means the local site is up and running on some port (probably `localhost:3000/`).
+
+```
+Compiled successfully!
+
+You can now view brusinhas in the browser.
+
+  Local:            http://localhost:3000
+  On Your Network:  http://192.168.0.16:3000
+```
 
 ## Problems
 
+* Some inconsistencies were noticed when  implementing the Figma mockup, for example, we had the CEP value in the profile, but we dind't ask for it in the sign up page. Because of that, some changes were made in order to have a better final product even if that meant not following the exact original plan.
+
 ## Comments
+
