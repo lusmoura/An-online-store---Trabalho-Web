@@ -57,6 +57,14 @@ export default function ItemListing({ id, auth, addToCart }) {
   let isAdmin = auth.isAdmin;
 
   const handleAddToCart = () => {
+    if(count == 0) {
+      toast("Selecione uma quantidade!", {
+        type: "warning",
+        position: "bottom-center",
+      });
+      return;
+    }
+
     toast("Item adicionado ao carrinho", {
       position: "bottom-right",
       autoClose: 2000,
@@ -69,7 +77,9 @@ export default function ItemListing({ id, auth, addToCart }) {
 
   useEffect(() => {
     setItem(fetchItem(id));
+  }, [id]);
 
+  useEffect(() => {
     const foundModel = fetchedItem.models.find(
       (model) => model === selectedModel
     );
@@ -80,12 +90,12 @@ export default function ItemListing({ id, auth, addToCart }) {
       );
 
       if (foundSize) {
-        setCount(foundSize.quantity);
+        setCount(1);
       } else {
         setCount(0);
       }
     }
-  }, [id, fetchedItem, selectedModel, selectedSize]);
+  }, [fetchedItem, selectedModel, selectedSize]);
 
   const nameRef = useRef(null);
   const descRef = useRef(null);
@@ -300,7 +310,9 @@ export default function ItemListing({ id, auth, addToCart }) {
               label="Comprar agora"
               onClick={() => {
                 handleAddToCart();
-                navigate("/cart");
+                if(count > 0) {
+                  navigate("/checkout");
+                }
               }}
             />
             <FilledButton

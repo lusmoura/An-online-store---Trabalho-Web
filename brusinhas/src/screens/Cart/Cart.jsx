@@ -53,6 +53,13 @@ export default function Cart({
             <FilledButton
               label="Comprar agora"
               onClick={() => {
+                if (cartItems.length === 0) {
+                  toast("Carrinho vazio!", {
+                    type: "warning",
+                    position: "bottom-center",
+                  });
+                  return;
+                }
                 navigate("/checkout");
               }}
             />

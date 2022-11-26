@@ -59,6 +59,7 @@ export default function Profile({ auth, users, setUsers, setAuth }) {
     setAuth({
       isAdmin: false,
       receiver: form.name,
+      loggedIn: true,
       ...form,
     });
 
@@ -85,7 +86,7 @@ export default function Profile({ auth, users, setUsers, setAuth }) {
           <h2 className="profile-page-subtitle text-4xl font-bold tracking-normal mb-2 font-raleway">
             Dados
           </h2>
-          <form className="profile-data-form flex justify-between items-center flex-row">
+          <div className="profile-data-form flex justify-between items-center flex-row">
             <TextField
               label="Nome"
               type="nome"
@@ -122,7 +123,7 @@ export default function Profile({ auth, users, setUsers, setAuth }) {
               onChange={handleChange}
               required
             />
-          </form>
+          </div>
         </div>
         <hr />
         <div className="profile-address">
