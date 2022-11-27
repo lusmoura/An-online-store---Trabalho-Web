@@ -38,7 +38,7 @@ export default function Cart({
           )}
         </div>
         <div className="flex flex-col">
-          <div className="cart-summary mr-[50px] p-8 bg-gray-100">
+          <div className="cart-summary flex flex-col gap-3 mr-[50px] p-8 bg-gray-100">
             <h2 className="cart-total-subtitle text-4xl font-bold tracking-normal mb-2 font-raleway">
               Resumo
             </h2>

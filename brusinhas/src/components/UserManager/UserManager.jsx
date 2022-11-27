@@ -2,7 +2,7 @@ import { useState } from "react";
 import UserItem from "./UserItem";
 import { mock, removeUser, updateUserAdmin } from "../../mock";
 
-export default function UserManager() {
+export default function UserManager({ auth }) {
   const [users, setUsers] = useState(mock.users);
 
   return (
@@ -22,6 +22,8 @@ export default function UserManager() {
           <UserItem
             key={user.id}
             name={user.name}
+            email={user.email}
+            auth={auth}
             isAdmin={user.isAdmin}
             handleUpdate={() => {
               const updatedUsers = users.map((u) => {

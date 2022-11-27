@@ -147,7 +147,11 @@ function App() {
             exact
             element={
               auth.loggedIn ? (
-                <Checkout clearCart={() => setCartItems([])} cartItems={cartItems} auth={auth} />
+                <Checkout
+                  clearCart={() => setCartItems([])}
+                  cartItems={cartItems}
+                  auth={auth}
+                />
               ) : (
                 <Login setAuth={setAuth} users={users} />
               )
@@ -177,7 +181,7 @@ function App() {
           />
 
           {auth.isAdmin && (
-            <Route path="/admin/users" element={<ManageUsers />} />
+            <Route path="/admin/users" element={<ManageUsers auth={auth} />} />
           )}
           {auth.isAdmin && (
             <Route path="/admin/items" element={<ManageItems />} />
@@ -188,7 +192,7 @@ function App() {
       </div>
       <ToastContainer />
 
-      <Footer id="footer" />
+      <Footer />
     </div>
   );
 }

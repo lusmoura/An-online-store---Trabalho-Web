@@ -57,7 +57,7 @@ export default function Profile({ auth, users, setUsers, setAuth }) {
     }
 
     setAuth({
-      isAdmin: false,
+      isAdmin: auth.isAdmin,
       receiver: form.name,
       loggedIn: true,
       ...form,

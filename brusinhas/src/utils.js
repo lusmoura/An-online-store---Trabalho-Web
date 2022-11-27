@@ -11,4 +11,18 @@ const centsToReal = (cents) => {
   });
 };
 
-export { possibleSizes, colors, centsToReal };
+function isPositiveInteger(str) {
+  if (typeof str !== "string") {
+    return false;
+  }
+
+  const num = Number(str);
+
+  if (Number.isInteger(num) && num > 0) {
+    return true;
+  }
+
+  return false;
+}
+
+export { possibleSizes, colors, centsToReal, isPositiveInteger };

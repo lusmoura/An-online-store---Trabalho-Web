@@ -1,4 +1,3 @@
-import tshirt from "../../assets/t-shirt.png";
 import FilledButton from "../FilledButton/FilledButton";
 
 import editIcon from "../../assets/pencil.svg";
@@ -6,7 +5,7 @@ import ClickableIcon from "../ClickableIcon/ClickableIcon";
 import { useNavigate } from "react-router-dom";
 import ItemCounter from "../ItemCounter/ItemCounter";
 import { mock } from "../../mock";
-import { centsToReal, possibleSizes } from "../../utils";
+import { centsToReal, isPositiveInteger, possibleSizes } from "../../utils";
 import { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 
@@ -57,7 +56,7 @@ export default function ItemListing({ id, auth, addToCart }) {
   let isAdmin = auth.isAdmin;
 
   const handleAddToCart = () => {
-    if(count == 0) {
+    if (count == 0) {
       toast("Selecione uma quantidade!", {
         type: "warning",
         position: "bottom-center",
@@ -102,8 +101,12 @@ export default function ItemListing({ id, auth, addToCart }) {
   const priceRef = useRef(null);
 
   return (
-    <div className="flex flex-row justify-center items-center gap-2">
-      <img className="object-cover w-1/4" src={tshirt} alt="item thumbnail" />
+    <div className="flex flex-row justify-center items-center gap-16">
+      <img
+        className="object-contain w-96"
+        src={fetchedItem.src}
+        alt={fetchedItem.alt}
+      />
       <div className="flex flex-col gap-4">
         <div>
           <div className="flex items-center gap-1">
@@ -174,8 +177,10 @@ export default function ItemListing({ id, auth, addToCart }) {
               ref={priceRef}
               className="text-lg font-bold w-auto"
               onChange={(el) => {
-                setPrice(el.target.value);
-                updateItemMetadata(id, name, price, desc);
+                if (isPositiveInteger(el.target.value)) {
+                  setPrice(el.target.value);
+                  updateItemMetadata(id, name, price, desc);
+                }
               }}
               onBlur={() => {
                 updateItemMetadata(id, name, price, desc);
@@ -310,7 +315,7 @@ export default function ItemListing({ id, auth, addToCart }) {
               label="Comprar agora"
               onClick={() => {
                 handleAddToCart();
-                if(count > 0) {
+                if (count > 0) {
                   navigate("/checkout");
                 }
               }}
