@@ -1,5 +1,3 @@
-import tshirt from "./assets/t-shirt.png";
-
 import mangaCurtaBranca from "./assets/manga-curta-branca.webp";
 import mangaCurtaPreta from "./assets/manga-curta-preta.jpg";
 import regataVermelha from "./assets/regata-vermelha.webp";
@@ -9,21 +7,22 @@ import camisetaMusica from "./assets/camiseta-musica.jpg";
 
 function addItem() {
   mock.items.push({
-    id: mock.items.length + 1,
-    name: "Camiseta manga curta",
-    description: "Camiseta manga curta, 100% algodão, cor branca",
-    src: tshirt,
-    alt: "T-shirt",
-    title: "T-shirt 1",
-    price: 5000,
-    category: "camiseta",
+    id:
+      mock.items.reduce((acc, item) => (item.id > acc ? item.id : acc), 0) + 1,
+    name: "Camiseta manga curta branca",
+    description: "Manga curta, 100% algodão, cor branca",
+    src: mangaCurtaBranca,
+    alt: "Camiseta manga curta branca",
+    title: "Camiseta manga curta branca",
+    price: 3000,
+    category: ["camiseta", "basica"],
     models: [
       {
         type: "Tradicional",
         sizes: [
           {
             size: "P",
-            quantity: 10,
+            quantity: 4,
           },
           {
             size: "M",
@@ -72,8 +71,8 @@ var mock = {
       name: "Camiseta manga curta branca",
       description: "Manga curta, 100% algodão, cor branca",
       src: mangaCurtaBranca,
-      alt: "Camiseta manga cura branca",
-      title: "Camiseta manga cura branca",
+      alt: "Camiseta manga curta branca",
+      title: "Camiseta manga curta branca",
       price: 3000,
       category: ["camiseta", "basica"],
       models: [

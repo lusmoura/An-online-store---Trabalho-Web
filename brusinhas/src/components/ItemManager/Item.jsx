@@ -13,7 +13,11 @@ export default function Item({
         <p>{name}</p>
       </td>
       <td className="p-3 text-center">
-        <p>{category}</p>
+        {Array.isArray(category) ? (
+          <p>{category.join(", ")}</p>
+        ) : (
+          <p>{category}</p>
+        )}
       </td>
       <td className="p-3 text-center">
         <ClickableIcon
