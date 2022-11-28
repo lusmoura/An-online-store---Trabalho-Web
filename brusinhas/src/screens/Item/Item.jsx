@@ -5,7 +5,7 @@ export default function Item({ auth, addToCart }) {
   const { id } = useParams();
   return (
     <div className="flex justify-center h-full items-center">
-      <ItemListing id={id} auth={auth} addToCart={addToCart} />;
+      <ItemListing id={id} auth={auth} addToCart={addToCart} />
     </div>
   );
 }

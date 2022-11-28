@@ -14,7 +14,7 @@ export default function Cart({
 
   return (
     <div className="cart-outer">
-      <div className="cart-inner flex flex-row justify-center items-start mt-5 w-full h-full">
+      <div className="cart-inner flex flex-row justify-center items-start mt-6 w-full h-full">
         <div className="cart-items flex flex-col gap-4 mx-[50px] p-8 flex-1 bg-gray-100">
           <h2 className="cart-items-subtitle text-4xl font-bold tracking-normal mb-2 font-raleway">
             Itens
