@@ -108,13 +108,13 @@ function App() {
 
   return (
     <div id="app">
+      <Header
+        isLoggedIn={auth.loggedIn}
+        isAdmin={auth.isAdmin}
+        id="header"
+        setCategory={setCategory}
+      />
       <div id="app-content">
-        <Header
-          isLoggedIn={auth.loggedIn}
-          isAdmin={auth.isAdmin}
-          id="header"
-          setCategory={setCategory}
-        />
         <Routes>
           <Route path="/" exact element={<Home category={category} />} />
           <Route
