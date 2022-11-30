@@ -114,6 +114,7 @@ function App() {
           isAdmin={auth.isAdmin}
           id="header"
           setCategory={setCategory}
+          itemCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
         />
         <Routes>
           <Route path="/" exact element={<Home category={category} />} />
