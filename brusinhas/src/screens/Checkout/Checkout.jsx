@@ -139,11 +139,12 @@ export default function Checkout({ cartItems, auth, clearCart }) {
             <TextField
               label="Número do cartão"
               type="text"
-              placeholder="xxxx xxxx xxxx xxxx"
+              placeholder="1234567891011121"
               name="cardNumber"
               value={form.cardNumber}
               onChange={handleChange}
               required
+              maxLength="16"
             />
             <TextField
               label="Validade"
