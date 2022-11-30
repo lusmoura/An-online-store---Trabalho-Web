@@ -190,7 +190,7 @@ function App() {
           <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </div>
-      <ToastContainer />
+      <ToastContainer limit={3}/>
 
       <Footer />
     </div>

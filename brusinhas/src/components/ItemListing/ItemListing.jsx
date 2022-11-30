@@ -136,6 +136,7 @@ export default function ItemListing({ id, auth, addToCart }) {
                 }}
                 onBlur={() => {
                   updateItemMetadata(id, name, price, desc);
+                  toast("Nome atualizado!", {type: "success", position: "bottom-center"});
                 }}
                 value={name}
               />
@@ -165,6 +166,7 @@ export default function ItemListing({ id, auth, addToCart }) {
                 }}
                 onBlur={() => {
                   updateItemMetadata(id, name, price, desc);
+                  toast("Nome atualizado!", {type: "success", position: "bottom-center"});
                 }}
                 value={desc}
               />
@@ -199,6 +201,7 @@ export default function ItemListing({ id, auth, addToCart }) {
               }}
               onBlur={() => {
                 updateItemMetadata(id, name, price, desc);
+                toast("Nome atualizado!", {type: "success", position: "bottom-center"});
               }}
               value={price}
             />
@@ -283,6 +286,9 @@ export default function ItemListing({ id, auth, addToCart }) {
           <h3 className="m-1">Quantidade</h3>
           <div className="flex flex-center items-center">
             <ItemCounter
+              onBlur={() => {
+                toast("Quantidade atualizada!", {type: "success", position: "bottom-center"});
+              }}
               count={count}
               handleDecrease={() => {
                 if (isAdmin) {
