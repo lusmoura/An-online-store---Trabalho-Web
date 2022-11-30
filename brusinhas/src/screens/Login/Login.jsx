@@ -27,11 +27,13 @@ export default function Login({ setAuth, users }) {
         receiver: user.receiver,
         loggedIn: true,
       });
-      navigate("/");
+
       toast("Login efetuado com sucesso", {
         position: "bottom-center",
         type: "success",
       });
+      
+      navigate(-1);
     } else {
       toast("Usuário não encontrado", {
         type: "error",
