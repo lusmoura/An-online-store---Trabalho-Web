@@ -63,7 +63,7 @@ export default function Signup({ setAuth, users, setUsers }) {
 
     setUsers([...users, form]);
 
-    navigate("/");
+    navigate(-1);
   }
 
   return (
