@@ -44,6 +44,16 @@ export default function Signup({ setAuth, users, setUsers }) {
       return;
     }
 
+    const user = users.find((user) => user.email === form.email);
+
+    if (user) {
+      toast("Usuário já cadastrado", {
+        type: "error",
+        position: "bottom-center",
+      });
+      return;
+    }
+
     setAuth({
       isAdmin: false,
       receiver: form.name,
