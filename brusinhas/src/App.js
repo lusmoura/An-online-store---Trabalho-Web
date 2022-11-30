@@ -114,6 +114,7 @@ function App() {
           isAdmin={auth.isAdmin}
           id="header"
           setCategory={setCategory}
+          itemCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
         />
         <Routes>
           <Route path="/" exact element={<Home category={category} />} />
@@ -190,7 +191,7 @@ function App() {
           <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </div>
-      <ToastContainer />
+      <ToastContainer limit={3}/>
 
       <Footer />
     </div>

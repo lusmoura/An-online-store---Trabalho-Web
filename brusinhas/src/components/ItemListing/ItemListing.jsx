@@ -52,6 +52,21 @@ export default function ItemListing({ id, auth, addToCart }) {
   const [selectedModel, setSelectedModel] = useState(fetchedItem.models[0]);
   const [selectedSize, setSelectedSize] = useState(selectedModel.sizes[0].size);
   const [count, setCount] = useState(1);
+  const [maxCount, setMaxCount] = useState(() => {
+    const fetchedModel = fetchedItem.models.find(
+      (model) => model === selectedModel
+    );
+
+    if (!fetchedModel) return;
+
+    const fetchedSize = fetchedModel.sizes.find(
+      (size) => size.size === selectedSize
+    );
+
+    if (!fetchedSize || fetchedSize.quantity === 0) return 0;
+
+    return fetchedSize.quantity;
+  });
 
   let isAdmin = auth.isAdmin;
 
@@ -121,6 +136,7 @@ export default function ItemListing({ id, auth, addToCart }) {
                 }}
                 onBlur={() => {
                   updateItemMetadata(id, name, price, desc);
+                  toast("Nome atualizado!", {type: "success", position: "bottom-center"});
                 }}
                 value={name}
               />
@@ -150,6 +166,7 @@ export default function ItemListing({ id, auth, addToCart }) {
                 }}
                 onBlur={() => {
                   updateItemMetadata(id, name, price, desc);
+                  toast("Nome atualizado!", {type: "success", position: "bottom-center"});
                 }}
                 value={desc}
               />
@@ -184,6 +201,7 @@ export default function ItemListing({ id, auth, addToCart }) {
               }}
               onBlur={() => {
                 updateItemMetadata(id, name, price, desc);
+                toast("Nome atualizado!", {type: "success", position: "bottom-center"});
               }}
               value={price}
             />
@@ -250,6 +268,7 @@ export default function ItemListing({ id, auth, addToCart }) {
                     className={`${color} min-w-[50px] min-h-[50px] font-light rounded-full p-3`}
                     onClick={() => {
                       setSelectedSize(possibleSize);
+                      setMaxCount(disabled ? 0 : foundSize.quantity);
 
                       if (isAdmin) {
                         updateItem(id, selectedModel, selectedSize, count);
@@ -265,49 +284,60 @@ export default function ItemListing({ id, auth, addToCart }) {
         </div>
         <div>
           <h3 className="m-1">Quantidade</h3>
-          <ItemCounter
-            count={count}
-            handleDecrease={() => {
-              if (isAdmin) {
-                setCount(Math.max(0, count - 1));
-                return;
-              }
+          <div className="flex flex-center items-center">
+            <ItemCounter
+              onBlur={() => {
+                toast("Quantidade atualizada!", {type: "success", position: "bottom-center"});
+              }}
+              count={count}
+              handleDecrease={() => {
+                if (isAdmin) {
+                  setCount(Math.max(0, count - 1));
+                  return;
+                }
 
-              const fetchedModel = fetchedItem.models.find(
-                (model) => model === selectedModel
-              );
+                const fetchedModel = fetchedItem.models.find(
+                  (model) => model === selectedModel
+                );
 
-              if (!fetchedModel) return;
+                if (!fetchedModel) return;
 
-              const fetchedSize = fetchedModel.sizes.find(
-                (size) => size.size === selectedSize
-              );
+                const fetchedSize = fetchedModel.sizes.find(
+                  (size) => size.size === selectedSize
+                );
 
-              if (!fetchedSize || fetchedSize.quantity === 0) return;
+                if (!fetchedSize || fetchedSize.quantity === 0) return;
 
-              setCount(Math.max(1, count - 1));
-            }}
-            handleIncrease={() => {
-              if (isAdmin) {
-                setCount(Math.min(100, count + 1));
-                return;
-              }
+                setCount(Math.max(1, count - 1));
+              }}
+              handleIncrease={() => {
+                if (isAdmin) {
+                  setCount(Math.min(100, count + 1));
+                  return;
+                }
 
-              const fetchedModel = fetchedItem.models.find(
-                (model) => model === selectedModel
-              );
+                const fetchedModel = fetchedItem.models.find(
+                  (model) => model === selectedModel
+                );
 
-              if (!fetchedModel) return;
+                if (!fetchedModel) return;
 
-              const fetchedSize = fetchedModel.sizes.find(
-                (size) => size.size === selectedSize
-              );
+                const fetchedSize = fetchedModel.sizes.find(
+                  (size) => size.size === selectedSize
+                );
 
-              if (!fetchedSize || fetchedSize.quantity === 0) return;
+                if (!fetchedSize || fetchedSize.quantity === 0) return;
 
-              setCount(Math.min(fetchedSize.quantity, count + 1));
-            }}
-          />
+                setCount(Math.min(fetchedSize.quantity, count + 1));
+                setMaxCount(fetchedSize.quantity);
+              }}
+            />
+            {!isAdmin && (
+              <div className="ml-5">
+                <p>{`Estoque: ${maxCount}`}</p>
+              </div>
+            )}
+          </div>
         </div>
         {!isAdmin && (
           <div className="flex gap-3">
