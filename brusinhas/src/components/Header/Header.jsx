@@ -55,7 +55,7 @@ export default function Header({
           <div className="flex gap-6 justify-center items-center">
             <Link to="/cart">
               <div className="">
-              {isLoggedIn && !isAdmin && (
+              {!isAdmin && (
                 <div className="bg-white w-[20px] h-[20px] rounded-full flex flex-center justify-center items-center">
                 <div className="font-light h-full w-full text-center flex flex-center items-center justify-center">
                   {itemCount}
