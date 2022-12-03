@@ -9,6 +9,7 @@ export default function Header({
   isLoggedIn = false,
   isAdmin = false,
   setCategory = () => {},
+  itemCount = 0,
 }) {
   return (
     <div className="header h-20 w-full flex justify-between items-center bg-primary px-[10px] py-[40px]">
@@ -53,7 +54,16 @@ export default function Header({
           )}
           <div className="flex gap-6 justify-center items-center">
             <Link to="/cart">
+              <div className="">
+              {isLoggedIn && !isAdmin && (
+                <div className="bg-white w-[20px] h-[20px] rounded-full flex flex-center justify-center items-center">
+                <div className="font-light h-full w-full text-center flex flex-center items-center justify-center">
+                  {itemCount}
+                </div>
+                </div>
+              )}
               <ClickableIcon src={cart} alt="cart" className="mx-[20px]" />
+              </div>
             </Link>
             {!isLoggedIn && (
               <div className="flex">

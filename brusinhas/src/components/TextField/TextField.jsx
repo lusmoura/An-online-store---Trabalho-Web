@@ -6,6 +6,7 @@ export default function TextField({
   onChange,
   name,
   required=false,
+  maxLength=undefined,
 }) {
   return (
     <div className="text-field-container flex justify-center items-start flex-col px-[20px] flex-1 my-[10px]">
@@ -20,6 +21,7 @@ export default function TextField({
         name={name}
         className="bg-white rounded box-border w-full placeholder-gray-500 border p-2"
         required={required}
+        maxLength={maxLength}
       />
     </div>
   );
