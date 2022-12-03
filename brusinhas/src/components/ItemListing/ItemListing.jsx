@@ -287,7 +287,7 @@ export default function ItemListing({ id, auth, addToCart }) {
           <div className="flex flex-center items-center">
             <ItemCounter
               onBlur={() => {
-                toast("Quantidade atualizada!", {type: "success", position: "bottom-center"});
+                isAdmin ? toast("Quantidade atualizada!", {type: "success", position: "bottom-center"}) : null;
               }}
               count={count}
               handleDecrease={() => {
