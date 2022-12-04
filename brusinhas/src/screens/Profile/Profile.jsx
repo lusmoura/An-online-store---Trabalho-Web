@@ -4,23 +4,51 @@ import TextField from "../../components/TextField/TextField";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { fetchUserById, updateUser } from "../../api/user";
 
-export default function Profile({ auth, users, setUsers, setAuth }) {
+function saveProfile(user) {
+  // make post request to api
+  updateUser(user).then((status) => {
+    if (status === 202) {
+      toast("Informações atualizadas com sucesso!", {
+        type: "success",
+        position: "bottom-center",
+      });
+    } else {
+      toast("Erro ao atualizar informações", {
+        type: "error",
+        position: "bottom-center",
+      });
+    }
+  });
+}
+
+const fetchProfile = async (email) => {
+  return fetchUserById(email).then((data) => {
+    return data;
+  });
+};
+
+export default function Profile({ auth, setAuth }) {
   const navigate = useNavigate();
+
   const [form, setForm] = useState({
-    name: auth.name,
-    email: auth.email,
-    password: auth.password,
-    phone: auth.phone,
-    address: auth.address,
-    receiver: auth.receiver,
+    name: auth.name || "",
+    email: auth.email || "",
+    password: "",
+    phone: auth.phone || "",
+    address: auth.address || "",
+    receiver: auth.receiver || "",
   });
 
   useEffect(() => {
-    if (auth.email === "") {
-      navigate("/login");
-    }
-  }, [auth.email, navigate]);
+    fetchProfile(auth.email).then((profile) => {
+      if (!auth.loggedIn) {
+        navigate("/login");
+      }
+      setForm(profile);
+    });
+  }, [auth, navigate]);
 
   function handleChange(event) {
     setForm({
@@ -40,40 +68,43 @@ export default function Profile({ auth, users, setUsers, setAuth }) {
       receiver: "",
       loggedIn: false,
     });
+
+    // clear local storage
+    localStorage.clear();
+
     navigate("/login");
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function handleSubmit() {
+    let isValid = true;
+    if (!form.password) {
+      isValid = false;
+    }
 
-    for (const property in form) {
-      if (form[property] === "") {
-        toast("Preencha todos os campos", {
-          style: "warning",
-          position: "bottom-center",
-        });
+    Object.keys(form).forEach((key) => {
+      let value = form[key];
+      if (value === "") {
+        isValid = false;
         return;
       }
+    });
+
+    if (!isValid) {
+      toast("Preencha todos os campos!", {
+        type: "error",
+        position: "bottom-center",
+      });
+      return;
     }
 
     setAuth({
       isAdmin: auth.isAdmin,
-      receiver: form.name,
+      receiver: form.receiver,
       loggedIn: true,
       ...form,
     });
 
-    setUsers(() => {
-      const user = users.find((user) => user.email === form.email);
-      const index = users.indexOf(user);
-      users[index] = form;
-      return users;
-    });
-
-    toast("Dados atualizados com sucesso", {
-      type: "success",
-      position: "bottom-center",
-    });
+    saveProfile(form);
   }
 
   return (
@@ -89,7 +120,7 @@ export default function Profile({ auth, users, setUsers, setAuth }) {
           <div className="profile-data-form flex justify-between items-center flex-row">
             <TextField
               label="Nome"
-              type="nome"
+              type="text"
               placeholder="Maria da Silva"
               value={form.name}
               name="name"

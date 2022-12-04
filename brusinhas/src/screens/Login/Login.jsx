@@ -7,39 +7,49 @@ import { Link } from "react-router-dom";
 
 import { toast } from "react-toastify";
 
-export default function Login({ setAuth, users }) {
+import { login } from "../../api/user";
+
+const fetchUser = async (email, password) => {
+  // make post request to api
+  return login(email, password).then((data) => {
+    if (data) {
+      toast("Login realizado com sucesso!", {
+        type: "success",
+        position: "bottom-center",
+      });
+    } else {
+      toast("Erro ao realizar o login!", {
+        type: "error",
+        position: "bottom-center",
+      });
+    }
+
+    return data;
+  });
+};
+
+export default function Login({ setAuth }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    const user = users.find((user) => user.email === email);
 
-    if (user && user.password === password) {
-      setAuth({
-        email: user.email,
-        isAdmin: user.isAdmin,
-        password: user.password,
-        name: user.name,
-        phone: user.phone,
-        address: user.address,
-        receiver: user.receiver,
-        loggedIn: true,
-      });
-
-      toast("Login efetuado com sucesso", {
-        position: "bottom-center",
-        type: "success",
-      });
-      
-      navigate(-1);
-    } else {
-      toast("Usuário não encontrado", {
-        type: "error",
-        position: "bottom-center",
-      });
-    }
+    fetchUser(email, password).then((user) => {
+      if (user) {
+        setAuth({
+          email: user.email,
+          isAdmin: user.isAdmin,
+          name: user.name,
+          phone: user.phone,
+          address: user.address,
+          receiver: user.receiver,
+          loggedIn: true,
+        });
+        navigate(-1);
+      }
+    });
   }
 
   return (

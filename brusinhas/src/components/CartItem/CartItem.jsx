@@ -4,7 +4,7 @@ import ItemCounter from "../ItemCounter/ItemCounter";
 export default function CartItem({
   src,
   alt,
-  title,
+  name,
   model,
   size,
   price,
@@ -15,9 +15,9 @@ export default function CartItem({
 }) {
   return (
     <div className="container flex flex-row justify-between items-center w-full h-full">
-      <img className="h-32 w-32" src={src} alt={alt} />
+      <img className="h-32 w-32" src={`/assets/${src}`} alt={alt} />
       <div className="item-details">
-        <h2 className="item-title text-xl font-bold">{title}</h2>
+        <h2 className="item-name text-xl font-bold">{name}</h2>
         <p className="item-model text-lg font-light">{model}</p>
         <p className="item-size text-lg font-light">{size}</p>
       </div>

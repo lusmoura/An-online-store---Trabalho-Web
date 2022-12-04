@@ -1,6 +1,6 @@
 import ClickableIcon from "../ClickableIcon/ClickableIcon";
-import pencilIcon from "../../assets/pencil.svg";
-import trashBinIcon from "../../assets/trash-bin.svg";
+const pencilIcon = "/assets/pencil.svg";
+const trashBinIcon = "/assets/trash-bin.svg";
 export default function Item({
   name,
   category,

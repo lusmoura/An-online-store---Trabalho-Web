@@ -1,15 +1,36 @@
 import Item from "./Item";
 
-import { mock } from "../../mock";
-
 import { useNavigate } from "react-router-dom";
+import { removeProductById } from "../../api/product";
+import { toast } from "react-toastify";
 
-function removeItem(id) {
-  mock.items = mock.items.filter((item) => item.id !== id);
+function removeProduct(id) {
+  // make delete request to api
+  removeProductById(id).then((status) => {
+    if (status === 202) {
+      toast("Item removido com sucesso!", {
+        type: "success",
+        position: "bottom-right",
+      });
+    } else {
+      toast("Erro ao remover o item!", {
+        type: "error",
+        position: "bottom-right",
+      });
+    }
+  });
 }
 
 export default function ItemManager({ items, setItems }) {
   const navigate = useNavigate();
+
+  if (!items) {
+    return (
+      <h1 className="flex justify-center items-center">
+        Nenhum item encontrado
+      </h1>
+    );
+  }
 
   return (
     <table className="table-auto rounded border-2 w-2/5">
@@ -35,7 +56,7 @@ export default function ItemManager({ items, setItems }) {
             }}
             handleDelete={() => {
               setItems(items.filter((i) => i.id !== item.id));
-              removeItem(item.id);
+              removeProduct(item.id);
             }}
           />
         ))}

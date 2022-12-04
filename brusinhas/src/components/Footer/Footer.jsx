@@ -1,4 +1,4 @@
-import github_icon from "../../assets/github_icon.svg";
+const github_icon = "/assets/github_icon.svg";
 
 export default function Footer() {
   return (

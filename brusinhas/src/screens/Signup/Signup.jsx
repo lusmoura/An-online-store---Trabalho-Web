@@ -4,7 +4,35 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-export default function Signup({ setAuth, users, setUsers }) {
+import { createUser, fetchUserById } from "../../api/user";
+
+function createProfile(user, setAuth, navigate) {
+  // make post request to api
+  createUser(user).then((status) => {
+    if (status === 202) {
+      toast("Conta criada com sucesso!", {
+        type: "success",
+        position: "bottom-center",
+      });
+
+      setAuth({
+        isAdmin: false,
+        receiver: user.name,
+        loggedIn: true,
+        ...user,
+      });
+
+      navigate("/");
+    } else {
+      toast("Erro ao criar conta", {
+        type: "error",
+        position: "bottom-center",
+      });
+    }
+  });
+}
+
+export default function Signup({ setAuth }) {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -44,26 +72,21 @@ export default function Signup({ setAuth, users, setUsers }) {
       return;
     }
 
-    const user = users.find((user) => user.email === form.email);
-
-    if (user) {
-      toast("Usuário já cadastrado", {
-        type: "error",
-        position: "bottom-center",
+    fetchUserById(form.email)
+      .then((data) => {
+        if (data) {
+          toast("Usuário já cadastrado", {
+            type: "warning",
+            position: "bottom-center",
+          });
+          return;
+        } else {
+          createProfile(form, setAuth, navigate);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
       });
-      return;
-    }
-
-    setAuth({
-      isAdmin: false,
-      receiver: form.name,
-      loggedIn: true,
-      ...form,
-    });
-
-    setUsers([...users, form]);
-
-    navigate(-1);
   }
 
   return (

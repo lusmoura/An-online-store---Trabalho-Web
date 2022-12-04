@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function Cart({
+  auth,
   cartItems,
   addToCart,
   removeFromCart,
@@ -60,7 +61,20 @@ export default function Cart({
                   });
                   return;
                 }
-                navigate("/checkout");
+
+                if (auth.isAdmin) {
+                  toast(
+                    "Você não pode finalizar uma compra como administrador!",
+                    {
+                      type: "warning",
+                      position: "bottom-center",
+                    }
+                  );
+
+                  navigate("/");
+                } else {
+                  navigate("/checkout");
+                }
               }}
             />
           </div>

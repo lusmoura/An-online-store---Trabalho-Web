@@ -70,6 +70,13 @@ The navigation works as follows:
 ```
 .
 +-- README.md
++-- server
+|   +- controllers
+|       --- controller functions for the backend
+|   +- models
+|       --- database access objects
+|   +- routes
+|       --- mapping between controllers and callbacks
 +-- mockups
 |   +-- Screens
 |   +-- Images
@@ -81,14 +88,14 @@ The navigation works as follows:
 |       --- index.html
 |       --- manifest.json
 |       --- robots.txt
-|   +-- scr
+|   +-- src
 |       --- base js and css files
-|       +-- assets
-|           --- images and other assets
 |       +-- components
 |           --- react components
 |       +-- screens
 |           --- website screens
+|       +-- api
+|           --- api communication layer
 ```
 
 ## Test Plan
@@ -110,8 +117,8 @@ Since we're mocking the users, to test the functionalities and navigate through 
 |   | User             | Password | isAdmin |
 |---|------------------|----------|---------|
 | 0 | admin@gmail.com  | admin    |   true  |
-| 1 | thiago@gmail.com | 123456   |   true  |
-| 2 | luisa@gmail.com  | 123456   |  false  |
+| 1 | thiago@gmail.com | 123      |   true  |
+| 2 | luisa@gmail.com  | 123      |  false  |
 
 
 ## Test Results
@@ -120,13 +127,59 @@ The website works perfectly, with everything working according to what was propo
 
 ## Build Procedures
 
+## Dependencies
+
+Before running this project, make sure to follow the steps below:
+
 1. Install Node.js and npm ([tutorial](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm))
 2. Clone [this repository](https://github.com/lusmoura/An-online-store---Trabalho-Web) locally.
-3. Enter the project folder (`brusinhas`) 
-4. Install all dependencies by running `npm install`
-5. Start local client site instance by running `npm start`  
+3. Install docker and docker-compose (it will be needed for the database) ([docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/))
+4. Follow the instructions below on how to deploy the backend and frontend, simultaneously
+
+## Backend
+
+To deploy the backend, you must have docker and docker-compose (or docker stack, whichever you prefer)!
+
+### Setup the database
+
+To setup the MongoDB database, simply spin up the docker container like so:
+
+```
+docker-compose -f docker/compose.yaml up -d
+```
+
+This will start the database, along with its initial products and user data. By default it will start the database in port 27017 and the database UI in port 8081. So navigate to http://127.0.0.1:8081 if you'd like to see how the data is arranged.
+
+### Setup the backend
+
+The backend is written in node.js, so it can be run the following way:
+
+1. Enter the project folder (`server`) 
+2. Install all dependencies by running `npm install`
+3. Start local client site instance by running `npm start`  
     - After that, you'll see a message like the one below. That means the local site is up and running on some port (probably `localhost:3000/`).
 
+P.S.: If you'd like to change the port running the backend, export the variable `API_PORT` with the preferable port.
+
+This should be the output:
+```
+> server@1.0.0 start
+> node index.js
+
+Database is connected // database worked!
+Initializing server
+Server Running on port: http://localhost:5000
+```
+
+### Setup the frontend
+
+1. Enter the project folder (`brusinhas`) 
+2. Install all dependencies by running `npm install`
+3. Start local client site instance by running `npm run start`  
+    - After that, you'll see a message like the one below. That means the local site is up and running on some port (probably `localhost:5000/`).
+
+
+This should be the output:
 ```
 Compiled successfully!
 
@@ -139,6 +192,8 @@ You can now view brusinhas in the browser.
 ## Problems
 
 * Some inconsistencies were noticed when  implementing the Figma mockup, for example, we had the CEP value in the profile, but we dind't ask for it in the sign up page. Because of that, some changes were made in order to have a better final product even if that meant not following the exact original plan.
+
+* Since it is not trivial to store images in MongoDB, we opted for storing the image assets on the client side (along with the source code) and serving it statically to the browser. Since the browser performs caching, it shouldn't affect performance, but we acknowledge that this is not preferable.
 
 ## Comments
 

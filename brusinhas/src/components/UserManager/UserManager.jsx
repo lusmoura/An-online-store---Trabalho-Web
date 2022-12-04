@@ -1,9 +1,17 @@
+import { useEffect } from "react";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { fetchUsers, removeUserById, updateUser } from "../../api/user";
 import UserItem from "./UserItem";
-import { mock, removeUser, updateUserAdmin } from "../../mock";
 
 export default function UserManager({ auth }) {
-  const [users, setUsers] = useState(mock.users);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetchUsers().then((data) => {
+      setUsers(data);
+    });
+  }, []);
 
   return (
     <table className="table-fixed rounded border-2 w-2/5">
@@ -26,21 +34,46 @@ export default function UserManager({ auth }) {
             auth={auth}
             isAdmin={user.isAdmin}
             handleUpdate={() => {
-              const updatedUsers = users.map((u) => {
-                if (u.id === user.id) {
-                  return {
-                    ...u,
-                    isAdmin: !u.isAdmin,
-                  };
+              if (auth.email === user.email) {
+                return;
+              }
+
+              // update changed user
+              updateUser(user).then((status) => {
+                if (status === 202) {
+                  toast("Usuário atualizado com sucesso!", {
+                    type: "success",
+                    position: "bottom-right",
+                  });
+                } else {
+                  toast("Erro ao atualizar o usuário!", {
+                    type: "error",
+                    position: "bottom-right",
+                  });
                 }
-                return u;
               });
-              setUsers(updatedUsers);
-              updateUserAdmin(user.id, !user.isAdmin);
             }}
             handleDelete={() => {
-              setUsers(users.filter((u) => u.id !== user.id));
-              removeUser(user.id);
+              if (auth.email === user.email) {
+                return;
+              }
+
+              setUsers(users.filter((u) => u.email !== user.email));
+
+              // delete user
+              removeUserById(user.email).then((status) => {
+                if (status === 202) {
+                  toast("Usuário removido com sucesso!", {
+                    type: "success",
+                    position: "bottom-right",
+                  });
+                } else {
+                  toast("Erro ao remover o usuário!", {
+                    type: "error",
+                    position: "bottom-right",
+                  });
+                }
+              });
             }}
           />
         ))}
