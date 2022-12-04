@@ -1,16 +1,20 @@
 const Router = require("express");
 const router = Router();
-const { get, getById, post, put, remove } = require("../controllers/user");
+const {
+  getAll,
+  getByEmail,
+  login,
+  post,
+  put,
+  remove,
+} = require("../controllers/user");
 
 // Define each route
-router.get("/", (req, res) => {
-  get(req, res);
-});
-router.get("/:id", (req, res) => {
-  getById(req, res);
-});
+router.get("/", getAll);
+router.get("/:email", getByEmail);
+router.post("/login/:email", login);
 router.post("/", post);
-router.put("/:id", put);
-router.delete("/:id", remove);
+router.put("/:email", put);
+router.delete("/:email", remove);
 
 module.exports = router;

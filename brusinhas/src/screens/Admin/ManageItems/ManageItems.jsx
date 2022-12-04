@@ -1,10 +1,76 @@
 import ItemManager from "../../../components/ItemManager/ItemManager";
 import FilledButton from "../../../components/FilledButton/FilledButton";
-import { addItem, mock } from "../../../mock";
+
+import { fetchProducts, createProduct } from "../../../api/product";
 
 import { useState } from "react";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+
+const getDefaultProduct = (items) => ({
+  id: items.reduce((max, item) => (item.id > max ? item.id : max), 0) + 1, // max id + 1
+  name: "Camiseta manga curta branca",
+  description: "Manga curta, 100% algodão, cor branca",
+  alt: "Camiseta manga curta branca",
+  title: "Camiseta manga curta branca",
+  price: 3000,
+  src: "manga-curta-branca.webp",
+  category: ["camiseta", "basica"],
+  models: [
+    {
+      type: "Tradicional",
+      sizes: [
+        {
+          size: "P",
+          quantity: 4,
+        },
+        {
+          size: "M",
+          quantity: 5,
+        },
+        {
+          size: "G",
+          quantity: 7,
+        },
+      ],
+    },
+    {
+      type: "Baby Look",
+      sizes: [
+        {
+          size: "P",
+          quantity: 6,
+        },
+      ],
+    },
+  ],
+});
+
+function addProduct(product) {
+  // make post request to api
+  createProduct(product).then((status) => {
+    if (status === 202) {
+      toast("Item adicionado com sucesso!", {
+        type: "success",
+        position: "bottom-right",
+      });
+    } else {
+      toast("Erro ao adicionar o item!", {
+        type: "error",
+        position: "bottom-right",
+      });
+    }
+  });
+}
+
 export default function ManageItems() {
-  const [items, setItems] = useState(mock.items);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    fetchProducts().then((data) => {
+      setItems(data);
+    });
+  }, []);
 
   return (
     <>
@@ -14,7 +80,9 @@ export default function ManageItems() {
         <FilledButton
           label="Adicionar item"
           onClick={() => {
-            setItems([...items, addItem()]);
+            const newProduct = getDefaultProduct(items);
+            addProduct(newProduct);
+            setItems([...items, newProduct]);
           }}
         />
       </div>

@@ -1,11 +1,10 @@
 const User = require("../models/user");
 
-const { SHA256 } = require("../utils");
+var bcrypt = require("bcryptjs");
 
 // get all
-const get = (req, res) => {
-  User.find(req.query)
-    .sort({ _id: -1 })
+const getAll = (req, res) => {
+  User.find({})
     .then((result) => {
       // obfuscate password hash
       result.forEach((user) => {
@@ -19,69 +18,106 @@ const get = (req, res) => {
     });
 };
 
-// Get user by id
-const getById = (req, res) => {
-  const id = req.params.id;
-  User.findOne({ id: id })
+const getByEmail = (req, res) => {
+  User.findOne({ email: req.params.email })
     .then((result) => {
-      // obfuscate password hash
-      result.password = undefined;
-      res.status(200).send(result);
+      if (result) {
+        result.password = undefined;
+        res.status(200).send(result);
+      } else {
+        res.status(404).send();
+      }
     })
     .catch((err) => {
+      console.error(err);
+      res.status(400).send(err);
+    });
+};
+
+// login
+const login = (req, res) => {
+  const email = req.params.email;
+  User.findOne({ email: email })
+    .then((result) => {
+      if (!result) {
+        res.status(404).send();
+        return;
+      }
+
+      // obfuscate password hash
+      const pwd = req.body.password;
+
+      if (pwd) {
+        if (bcrypt.compareSync(pwd, result.password)) {
+          result.password = undefined;
+          res.status(200).send(result);
+        } else {
+          res.status(403).send();
+        }
+      } else {
+        res.status(403).send();
+      }
+    })
+    .catch((err) => {
+      console.error(err);
       res.status(400).send(err);
     });
 };
 
 // Create new user
 const post = (req, res) => {
-  const User = new User(req.body);
+  const user = new User({
+    email: req.body.email,
+    password: bcrypt.hashSync(req.body.password, 4),
+    name: req.body.name,
+    address: req.body.address,
+    phone: req.body.phone,
+    isAdmin: false,
+  });
 
   // hash password
-  User.password = SHA256(User.password);
-
-  User.save()
+  user
+    .save()
     .then((result) => {
-      res.status(201).send(result);
+      res.status(202).send(result);
     })
     .catch((err) => {
+      console.error(err);
       res.status(400).send(err);
     });
 };
 
 // overwrite
 const put = (req, res) => {
-  const id = req.params.id;
-  User.findOne({ id: id })
-    .then((User) => {
-      // hash password
-      User.password = SHA256(User.password);
+  const email = req.params.email;
+  if (req.body.password) {
+    req.body.password = bcrypt.hashSync(req.body.password, 4);
+  }
 
-      if (User !== null) {
-        User.findOneAndDelete({ id: id }).then(() => {
-          User(req.body).save();
-          res.status(201).send(req.body);
-        });
+  User.findOneAndReplace({ email: email }, req.body)
+    .then((newProduct) => {
+      if (newProduct !== null) {
+        res.status(202).send(newProduct);
       } else {
-        User(req.body).save();
-        res.status(201).send(req.body);
+        res.status(404).send();
       }
     })
     .catch((err) => {
+      console.error(err);
       res.status(400).send(err);
     });
 };
 
 // remove by id
 const remove = (req, res) => {
-  const id = req.params.id;
-  User.findOneAndDelete({ id: id }).then((User) => {
+  const email = req.params.email;
+  User.findOneAndDelete({ email: email }).then((User) => {
     if (User) {
-      res.status(204).send();
+      res.status(202).send();
     } else {
       res.status(404).send();
     }
   });
 };
 
-module.exports = { get, getById, post, put, remove };
+module.exports = { getAll, getByEmail, login, post, put, remove };

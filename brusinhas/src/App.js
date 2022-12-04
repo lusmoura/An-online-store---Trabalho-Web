@@ -7,38 +7,74 @@ import Checkout from "./screens/Checkout/Checkout";
 import Home from "./screens/Home/Home";
 import Item from "./screens/Item/Item";
 import Profile from "./screens/Profile/Profile";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import ManageUsers from "./screens/Admin/ManageUsers/ManageUsers";
 import ManageItems from "./screens/Admin/ManageItems/ManageItems";
-import { mock } from "./mock";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { fetchProducts } from "./api/product";
 
 function App() {
   const [category, setCategory] = useState("all");
   const [auth, setAuth] = useState({
     email: "",
-    password: "",
     loggedIn: false,
     isAdmin: false,
   });
-  const [users, setUsers] = useState(mock.users);
+
+  const [products, setProducts] = useState([]);
+
+  // when startup, fetch products from API and load user and cart from local storage if exists
+  useEffect(() => {
+    fetchProducts().then((data) => {
+      console.log(data);
+      setProducts(data);
+    });
+
+    const user = JSON.parse(localStorage.getItem("auth"));
+    if (user && user.email) {
+      setAuth({
+        email: user.email,
+        loggedIn: true,
+        isAdmin: user.isAdmin,
+      });
+    }
+
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    if (cart) {
+      setCartItems(cart);
+    }
+  }, []);
+
+  // if auth changes, save it to localStorage
+  useEffect(() => {
+    if (auth.email) {
+      localStorage.setItem("auth", JSON.stringify(auth));
+    }
+  }, [auth]);
 
   const [cartItems, setCartItems] = useState([]);
 
+  // if cart changes, save it to localStorage
+  useEffect(() => {
+    if (cartItems.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+    }
+  }, [cartItems]);
+
   const addToCart = (id, model, size, qtt) => {
     // check if item exists
-    const itemIndex = mock.items.findIndex((item) => item.id === id);
+    const itemIndex = products.findIndex((item) => item.id === id);
 
     let price, src, alt;
     if (itemIndex === -1) {
       return;
     } else {
-      price = mock.items[itemIndex].price;
-      src = mock.items[itemIndex].src;
-      alt = mock.items[itemIndex].alt;
+      price = products[itemIndex].price;
+      src = products[itemIndex].src;
+      alt = products[itemIndex].alt;
     }
 
     const index = cartItems.findIndex(
@@ -60,7 +96,7 @@ function App() {
       ]);
     } else {
       // find max quantity of item in stock
-      let stockItem = mock.items.find((item) => item.id === id);
+      let stockItem = products.find((item) => item.id === id);
       if (!stockItem) {
         return;
       }
@@ -113,29 +149,13 @@ function App() {
         isAdmin={auth.isAdmin}
         id="header"
         setCategory={setCategory}
+        itemCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
       />
       <div id="app-content">
-        <Header
-          isLoggedIn={auth.loggedIn}
-          isAdmin={auth.isAdmin}
-          id="header"
-          setCategory={setCategory}
-          itemCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
-        />
         <Routes>
           <Route path="/" exact element={<Home category={category} />} />
-          <Route
-            path="/signup"
-            exact
-            element={
-              <Signup users={users} setUsers={setUsers} setAuth={setAuth} />
-            }
-          />
-          <Route
-            path="/login"
-            exact
-            element={<Login setAuth={setAuth} users={users} />}
-          />
+          <Route path="/signup" exact element={<Signup setAuth={setAuth} />} />
+          <Route path="/login" exact element={<Login setAuth={setAuth} />} />
           <Route
             path="/cart"
             exact
@@ -160,7 +180,7 @@ function App() {
                   auth={auth}
                 />
               ) : (
-                <Login setAuth={setAuth} users={users} />
+                <Login setAuth={setAuth} />
               )
             }
           />
@@ -175,14 +195,9 @@ function App() {
             exact
             element={
               auth.loggedIn ? (
-                <Profile
-                  auth={auth}
-                  setAuth={setAuth}
-                  users={users}
-                  setUsers={setUsers}
-                />
+                <Profile auth={auth} setAuth={setAuth} />
               ) : (
-                <Login setAuth={setAuth} users={users} />
+                <Login setAuth={setAuth} />
               )
             }
           />
@@ -197,7 +212,7 @@ function App() {
           <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </div>
-      <ToastContainer limit={3} />
+      <ToastContainer />
 
       <Footer />
     </div>

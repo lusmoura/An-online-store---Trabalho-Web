@@ -1,58 +1,93 @@
 import FilledButton from "../FilledButton/FilledButton";
 
-import editIcon from "../../assets/pencil.svg";
+const editIcon = "/assets/pencil.svg";
+
 import ClickableIcon from "../ClickableIcon/ClickableIcon";
 import { useNavigate } from "react-router-dom";
 import ItemCounter from "../ItemCounter/ItemCounter";
-import { mock } from "../../mock";
 import { centsToReal, isPositiveInteger, possibleSizes } from "../../utils";
 import { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 
-function fetchItem(id) {
-  return mock.items.find((item) => String(item.id) === id);
-}
+import { fetchProductById, updateProduct } from "../../api/product";
 
-function updateItem(id, selectedModel, selectedSize, newCount) {
-  // update item in mocks array
-  const item = mock.items.find((item) => String(item.id) === id);
-  const foundModel = item.models.find((model) => model === selectedModel);
-
-  if (foundModel) {
-    let foundSize = foundModel.sizes.find((size) => size.size === selectedSize);
-
-    if (foundSize) {
-      foundSize.quantity = newCount;
-    } else {
-      foundModel.sizes.push({ size: selectedSize, quantity: newCount });
-    }
-  } else {
-    item.models.push({
-      model: selectedModel,
-      sizes: [{ size: selectedSize, quantity: newCount }],
+function updateItem(product) {
+  // make put request to overwrite product
+  updateProduct(product)
+    .then(() => {
+      toast.success("Produto atualizado com sucesso!", {
+        position: "bottom-right",
+      });
+    })
+    .catch((err) => {
+      toast.error("Erro ao atualizar produto.", { position: "bottom-right" });
+      console.error(err);
     });
-  }
-}
-
-function updateItemMetadata(id, name, price, description) {
-  let idx = mock.items.findIndex((item) => String(item.id) === id);
-  mock.items[idx].name = name;
-  mock.items[idx].price = price;
-  mock.items[idx].description = description;
 }
 
 export default function ItemListing({ id, auth, addToCart }) {
-  const navigate = useNavigate();
-  let [fetchedItem, setItem] = useState(fetchItem(id));
+  const [fetchedItem, setItem] = useState({});
+  const [selectedModel, setSelectedModel] = useState({});
+  const [selectedSize, setSelectedSize] = useState({});
+  const [maxCount, setMaxCount] = useState(0);
 
-  const [name, setName] = useState(fetchedItem.name);
-  const [desc, setDesc] = useState(fetchedItem.description);
-  const [price, setPrice] = useState(fetchedItem.price);
+  const [name, setName] = useState("");
+  const [desc, setDesc] = useState("");
+  const [price, setPrice] = useState(0);
 
-  const [selectedModel, setSelectedModel] = useState(fetchedItem.models[0]);
-  const [selectedSize, setSelectedSize] = useState(selectedModel.sizes[0].size);
   const [count, setCount] = useState(1);
-  const [maxCount, setMaxCount] = useState(() => {
+
+  let isAdmin = auth.isAdmin;
+
+  // startup
+  useEffect(() => {
+    // fetch item from api
+    fetchProductById(id).then((item) => {
+      setItem(item);
+
+      // set default model
+      const defaultModel = item.models[0];
+      const defaultSize = defaultModel.sizes[0];
+
+      setSelectedModel(defaultModel);
+      setSelectedSize(defaultSize.size);
+
+      // set item name, desc and price
+      setName(item.name);
+      setDesc(item.description);
+      setPrice(item.price);
+
+      // set max count to size of the item
+      const fetchedModel = item.models.find((model) => model === defaultModel);
+
+      if (!fetchedModel) return;
+
+      const fetchedSize = fetchedModel.sizes.find(
+        (size) => size.size === defaultSize.size
+      );
+
+      if (!fetchedSize || fetchedSize.quantity === 0) {
+        setCount(0);
+        setMaxCount(0);
+        return;
+      }
+
+      setMaxCount(fetchedSize.quantity);
+
+      if (isAdmin) {
+        setCount(fetchedSize.quantity);
+      } else {
+        setCount(1);
+      }
+    });
+  }, [id, isAdmin]);
+
+  // update item values when model/size changes
+  useEffect(() => {
+    // return if item has not been fetched yet
+    if (Object.keys(fetchedItem).length === 0) return;
+
+    // update counts when model or size changes
     const fetchedModel = fetchedItem.models.find(
       (model) => model === selectedModel
     );
@@ -63,19 +98,77 @@ export default function ItemListing({ id, auth, addToCart }) {
       (size) => size.size === selectedSize
     );
 
-    if (!fetchedSize || fetchedSize.quantity === 0) return 0;
+    if (!fetchedSize || fetchedSize.quantity === 0) {
+      setCount(0);
+      setMaxCount(0);
+      return;
+    }
 
-    return fetchedSize.quantity;
-  });
+    setMaxCount(fetchedSize.quantity);
 
-  let isAdmin = auth.isAdmin;
+    if (isAdmin) {
+      setCount(fetchedSize.quantity);
+    } else {
+      setCount(1);
+    }
+  }, [fetchedItem, selectedModel, selectedSize, isAdmin]);
+
+  // when count changes, update stock
+  const handleAdminUpdateCount = (newCount) => {
+    // return if item has not been fetched yet
+    if (Object.keys(fetchedItem).length === 0) return;
+
+    // if count didnt change, return
+    if (newCount === count) return;
+
+    // update item when count changes
+    const fetchedModelIdx = fetchedItem.models.findIndex(
+      (model) => model === selectedModel
+    );
+
+    if (fetchedModelIdx === -1) return;
+
+    const fetchedSizeIdx = fetchedItem.models[fetchedModelIdx].sizes.findIndex(
+      (size) => size.size === selectedSize
+    );
+
+    // if size does not exist, create it
+    if (fetchedSizeIdx === -1) {
+      fetchedItem.models[fetchedModelIdx].sizes.push({
+        size: selectedSize,
+        quantity: newCount,
+      });
+    } else {
+      // otherwise update it
+      fetchedItem.models[fetchedModelIdx].sizes[fetchedSizeIdx].quantity =
+        newCount;
+    }
+
+    setCount(newCount);
+    // if count is 0, remove size from model
+    if (newCount === 0) {
+      fetchedItem.models[fetchedModelIdx].sizes.splice(fetchedSizeIdx, 1);
+    }
+
+    updateItem(fetchedItem);
+  };
+
+  const navigate = useNavigate();
 
   const handleAddToCart = () => {
-    if (count == 0) {
-      toast("Selecione uma quantidade!", {
-        type: "warning",
-        position: "bottom-center",
-      });
+    if (count === 0) {
+      if (maxCount === 0) {
+        toast("Produto indisponível nesse tamanho!", {
+          type: "warning",
+          position: "bottom-center",
+        });
+      } else {
+        toast("Selecione uma quantidade!", {
+          type: "warning",
+          position: "bottom-center",
+        });
+      }
+
       return;
     }
 
@@ -89,37 +182,23 @@ export default function ItemListing({ id, auth, addToCart }) {
     addToCart(fetchedItem.id, selectedModel.type, selectedSize, count);
   };
 
-  useEffect(() => {
-    setItem(fetchItem(id));
-  }, [id]);
-
-  useEffect(() => {
-    const foundModel = fetchedItem.models.find(
-      (model) => model === selectedModel
-    );
-
-    if (foundModel) {
-      const foundSize = foundModel.sizes.find(
-        (size) => size.size === selectedSize
-      );
-
-      if (foundSize) {
-        setCount(1);
-      } else {
-        setCount(0);
-      }
-    }
-  }, [fetchedItem, selectedModel, selectedSize]);
-
   const nameRef = useRef(null);
   const descRef = useRef(null);
   const priceRef = useRef(null);
+
+  if (fetchedItem.id === undefined) {
+    return (
+      <h1 className="flex flex-row justify-center items-center gap-16">
+        Carregando...
+      </h1>
+    );
+  }
 
   return (
     <div className="flex flex-row justify-center items-center gap-16">
       <img
         className="object-contain w-96"
-        src={fetchedItem.src}
+        src={`/assets/${fetchedItem.src}`}
         alt={fetchedItem.alt}
       />
       <div className="flex flex-col gap-4">
@@ -132,11 +211,10 @@ export default function ItemListing({ id, auth, addToCart }) {
                 className="text-xl font-bold"
                 onChange={(el) => {
                   setName(el.target.value);
-                  updateItemMetadata(id, name, price, desc);
                 }}
                 onBlur={() => {
-                  updateItemMetadata(id, name, price, desc);
-                  toast("Nome atualizado!", {type: "success", position: "bottom-center"});
+                  fetchedItem.name = name;
+                  updateItem(fetchedItem);
                 }}
                 value={name}
               />
@@ -162,11 +240,10 @@ export default function ItemListing({ id, auth, addToCart }) {
                 className="text-lg font-light w-auto"
                 onChange={(el) => {
                   setDesc(el.target.value);
-                  updateItemMetadata(id, name, price, desc);
                 }}
                 onBlur={() => {
-                  updateItemMetadata(id, name, price, desc);
-                  toast("Nome atualizado!", {type: "success", position: "bottom-center"});
+                  fetchedItem.description = desc;
+                  updateItem(fetchedItem);
                 }}
                 value={desc}
               />
@@ -196,12 +273,11 @@ export default function ItemListing({ id, auth, addToCart }) {
               onChange={(el) => {
                 if (isPositiveInteger(el.target.value)) {
                   setPrice(el.target.value);
-                  updateItemMetadata(id, name, price, desc);
                 }
               }}
               onBlur={() => {
-                updateItemMetadata(id, name, price, desc);
-                toast("Nome atualizado!", {type: "success", position: "bottom-center"});
+                fetchedItem.price = price;
+                updateItem(fetchedItem);
               }}
               value={price}
             />
@@ -269,10 +345,6 @@ export default function ItemListing({ id, auth, addToCart }) {
                     onClick={() => {
                       setSelectedSize(possibleSize);
                       setMaxCount(disabled ? 0 : foundSize.quantity);
-
-                      if (isAdmin) {
-                        updateItem(id, selectedModel, selectedSize, count);
-                      }
                     }}
                   >
                     {possibleSize}
@@ -286,13 +358,10 @@ export default function ItemListing({ id, auth, addToCart }) {
           <h3 className="m-1">Quantidade</h3>
           <div className="flex flex-center items-center">
             <ItemCounter
-              onBlur={() => {
-                toast("Quantidade atualizada!", {type: "success", position: "bottom-center"});
-              }}
               count={count}
               handleDecrease={() => {
                 if (isAdmin) {
-                  setCount(Math.max(0, count - 1));
+                  handleAdminUpdateCount(Math.max(0, count - 1));
                   return;
                 }
 
@@ -312,7 +381,7 @@ export default function ItemListing({ id, auth, addToCart }) {
               }}
               handleIncrease={() => {
                 if (isAdmin) {
-                  setCount(Math.min(100, count + 1));
+                  handleAdminUpdateCount(Math.min(100, count + 1));
                   return;
                 }
 

@@ -6,7 +6,8 @@ const userRouter = require("./routes/user");
 const productRouter = require("./routes/product");
 
 const app = express();
-const port = 8080;
+
+app.use(express.json());
 
 const loadEnv = require("./env");
 const env = loadEnv();
@@ -23,8 +24,8 @@ connect(env.MONGO_URI, {
 
     app.get("/", (req, res) => res.send("Hello from homepage."));
 
-    app.listen(port, () =>
-      console.log(`Server Running on port: http://localhost:${port}`)
+    app.listen(env.API_PORT, () =>
+      console.log(`Server Running on port: http://localhost:${env.API_PORT}`)
     );
 
     app.use("/user", userRouter);

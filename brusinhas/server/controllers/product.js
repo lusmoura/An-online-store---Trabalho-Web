@@ -26,12 +26,15 @@ const getById = (req, res) => {
 
 // Create
 const post = (req, res) => {
-  const Product = new Product(req.body);
-  Product.save()
+  const product = new Product(req.body);
+
+  product
+    .save()
     .then((result) => {
-      res.status(201).send(result);
+      res.status(202).send(result);
     })
     .catch((err) => {
+      console.error(err);
       res.status(400).send(err);
     });
 };
@@ -44,14 +47,32 @@ const put = (req, res) => {
       if (Product !== null) {
         Product.findOneAndDelete({ id: id }).then(() => {
           Product(req.body).save();
-          res.status(201).send(req.body);
+          res.status(202).send(req.body);
         });
       } else {
         Product(req.body).save();
-        res.status(201).send(req.body);
+        res.status(202).send(req.body);
       }
     })
     .catch((err) => {
+      res.status(400).send(err);
+    });
+};
+
+// Partial update
+const patch = (req, res) => {
+  const id = req.params.id;
+
+  Product.findOneAndReplace({ id: id }, req.body)
+    .then((newProduct) => {
+      if (newProduct !== null) {
+        res.status(202).send(newProduct);
+      } else {
+        res.status(404).send();
+      }
+    })
+    .catch((err) => {
+      console.error(err);
       res.status(400).send(err);
     });
 };
@@ -61,11 +82,11 @@ const remove = (req, res) => {
   const id = req.params.id;
   Product.findOneAndDelete({ id: id }).then((Product) => {
     if (Product) {
-      res.status(204).send();
+      res.status(202).send();
     } else {
       res.status(404).send();
     }
   });
 };
 
-module.exports = { get, getById, post, put, remove };
+module.exports = { get, getById, post, put, patch, remove };

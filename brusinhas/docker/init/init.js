@@ -24,9 +24,8 @@ db.users.insertMany([
     id: 0,
     name: "admin",
     email: "admin@gmail.com",
-    // sha256(123)
-    password:
-      "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+    // bcrypt(123)
+    password: "$2a$08$eX9210LUrFuYOtx.gKwHhOtF5DZ0xE3JHG.oveL20GrC7FKvxaWTW",
     isAdmin: true,
     address: " ",
     phone: " ",
@@ -35,9 +34,8 @@ db.users.insertMany([
     id: 1,
     name: "Thiago",
     email: "thiago@gmail.com",
-    // sha256(123)
-    password:
-      "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+    // bcrypt(123)
+    password: "$2a$08$x1ZeSc4hnxV9lmFz2gV7yez5CTDngP5YRJqiMnFYdKWlDlqshE8Sm",
     isAdmin: true,
     address: "Rua 1",
     phone: "123456789",
@@ -46,9 +44,8 @@ db.users.insertMany([
     id: 2,
     name: "Luísa",
     email: "luisa@gmail.com",
-    // sha256(123)
-    password:
-      "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+    // bcrypt(123)
+    password: "$2a$08$LXSam4ZFN/MLrrDBWBx4N.gUNaE8yaBa3hMJcjgTDjzlROmNaGnKm",
     isAdmin: false,
     address: "Rua 1",
     phone: "123456789",
@@ -61,8 +58,8 @@ db.products.insertMany([
     name: "Camiseta manga curta branca",
     description: "Manga curta, 100% algodão, cor branca",
     alt: "Camiseta manga curta branca",
-    title: "Camiseta manga curta branca",
     price: 3000,
+    src: "manga-curta-branca.webp",
     category: ["camiseta", "basica"],
     models: [
       {
@@ -98,8 +95,8 @@ db.products.insertMany([
     name: "Camiseta manga curta preta",
     description: "Manga curta, 100% algodão, cor preta",
     alt: "Manga curta preta",
-    title: "Manga curta preta",
     price: 3000,
+    src: "manga-curta-preta.jpg",
     category: ["camiseta", "basica"],
     models: [
       {
@@ -135,9 +132,9 @@ db.products.insertMany([
     name: "Regata vermelha",
     description: "Regata, fresquinha, cor vermelha",
     alt: "Regata vermelha",
-    title: "Regata vermelha",
     price: 2500,
-    category: "regata",
+    src: "regata-vermelha.webp",
+    category: ["regata"],
     models: [
       {
         type: "Tradicional",
@@ -172,9 +169,9 @@ db.products.insertMany([
     name: "Camisa social feminina",
     description: "Camisa social feminina, qualidade excelente, cor branca",
     alt: "Camisa social feminina",
-    title: "Camisa social feminina",
     price: 7000,
-    category: "social",
+    src: "camisa-social.jpg",
+    category: ["social"],
     models: [
       {
         type: "Tradicional",
@@ -208,9 +205,9 @@ db.products.insertMany([
     id: 5,
     name: "Camiseta gatinho maluco",
     description: "Camiseta gatinho maluco, muito estilosa",
-    title: "Camiseta gatinho maluco",
     price: 5500,
-    category: "estilosah",
+    src: "camiseta-gato.jpg",
+    category: ["estilosah"],
     models: [
       {
         type: "Tradicional",
@@ -245,8 +242,8 @@ db.products.insertMany([
     name: "Camiseta música",
     description: "Camiseta música, notas musicais, muito estilosa",
     alt: "Camiseta música",
-    title: "Camiseta música",
     price: 4500,
+    src: "camiseta-musica.jpg",
     category: ["camiseta", "estilosah"],
     models: [
       {

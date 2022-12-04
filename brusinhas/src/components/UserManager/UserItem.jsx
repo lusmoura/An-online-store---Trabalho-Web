@@ -1,22 +1,21 @@
 import ClickableIcon from "../ClickableIcon/ClickableIcon";
 
-import trashBinIcon from "../../assets/trash-bin.svg";
-import onIcon from "../../assets/toggle-fill.svg";
-import offIcon from "../../assets/toggle-line.svg";
+const trashBinIcon = "/assets/trash-bin.svg";
+const onIcon = "/assets/toggle-fill.svg";
+const offIcon = "/assets/toggle-line.svg";
+
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function UserItem({
   name,
-  email,
   auth,
+  email,
   isAdmin = false,
   handleUpdate = () => {},
   handleDelete = () => {},
 }) {
   const [icon, setIcon] = useState(isAdmin ? onIcon : offIcon);
-
-  console.log(email, auth.email);
   return (
     <tr className="p-5">
       <td className="p-3 text-center">
@@ -32,9 +31,9 @@ export default function UserItem({
                 type: "warning",
                 position: "bottom-center",
               });
-
               return;
             }
+
             setIcon(icon === onIcon ? offIcon : onIcon);
             handleUpdate();
           }}
@@ -44,7 +43,17 @@ export default function UserItem({
         <ClickableIcon
           src={trashBinIcon}
           alt="trash bin icon"
-          onClick={handleDelete}
+          onClick={() => {
+            if (auth.email === email) {
+              toast("Você não pode alterar seu próprio status", {
+                type: "warning",
+                position: "bottom-center",
+              });
+              return;
+            }
+
+            handleDelete();
+          }}
         />
       </td>
     </tr>

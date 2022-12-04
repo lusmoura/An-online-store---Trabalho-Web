@@ -1,11 +1,18 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { fetchProducts } from "../../api/product";
 import CardItem from "../../components/CardItem/CardItem";
-import { mock } from "../../mock";
 
 import "./style.css";
 
 export default function Home({ category }) {
-  let items = mock.items;
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    fetchProducts().then((data) => {
+      setItems(data);
+    });
+  }, []);
 
   const match = (category, item) => {
     if (category === "all") {
