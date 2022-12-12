@@ -13,7 +13,7 @@ export const fetchProductById = async (id) => {
 };
 
 export const updateProduct = async (product) => {
-  product.src = "manga-curta-branca.webp"; // hard coded since are not storing image files in database
+  product.src = product.src || "manga-curta-branca.webp"; // hard coded since are not storing image files in database
   const response = await fetch(
     `http://localhost:${API_PORT}/product/${product.id}`,
     {

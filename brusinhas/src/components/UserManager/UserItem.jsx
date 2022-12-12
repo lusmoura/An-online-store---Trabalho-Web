@@ -8,7 +8,6 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function UserItem({
-  name,
   auth,
   email,
   isAdmin = false,
@@ -19,7 +18,7 @@ export default function UserItem({
   return (
     <tr className="p-5">
       <td className="p-3 text-center">
-        <p>{name}</p>
+        <p>{email}</p>
       </td>
       <td className="align-middle text-center">
         <ClickableIcon

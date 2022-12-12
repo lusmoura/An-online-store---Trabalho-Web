@@ -69,15 +69,11 @@ export default function Header({
           <div className="flex items-center align-top">
             <Link to="/cart">
               <div>
-                <div className="bg-white rounded-full font-light h-full ml-3 -mt-[20px] text-center w-full">
+                <div className="bg-white rounded-full font-light h-full -ml-3 -mt-[20px] text-center w-full">
                   {itemCount}
                 </div>
 
-                <ClickableIcon
-                  src={cart}
-                  alt="cart"
-                  className="mx-[20px] pb-8"
-                />
+                <ClickableIcon src={cart} alt="cart" />
               </div>
             </Link>
 

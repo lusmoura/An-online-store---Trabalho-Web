@@ -29,7 +29,6 @@ export default function UserManager({ auth }) {
         {users.map((user) => (
           <UserItem
             key={user.id}
-            name={user.name}
             email={user.email}
             auth={auth}
             isAdmin={user.isAdmin}
@@ -39,6 +38,7 @@ export default function UserManager({ auth }) {
               }
 
               // update changed user
+              user.isAdmin = !user.isAdmin;
               updateUser(user).then((status) => {
                 if (status === 202) {
                   toast("Usuário atualizado com sucesso!", {
