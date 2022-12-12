@@ -156,8 +156,8 @@ The backend is written in node.js, so it can be run the following way:
 
 1. Enter the project folder (`server`) 
 2. Install all dependencies by running `npm install`
-3. Start local client site instance by running `npm start`  
-    - After that, you'll see a message like the one below. That means the local site is up and running on some port (probably `localhost:3000/`).
+3. Start server instance by running `npm run start`  
+    - After that, you'll see a message like the one below. That means the server is up and running on some port (probably `localhost:5000/`).
 
 P.S.: If you'd like to change the port running the backend, export the variable `API_PORT` with the preferable port.
 
@@ -176,7 +176,7 @@ Server Running on port: http://localhost:5000
 1. Enter the project folder (`brusinhas`) 
 2. Install all dependencies by running `npm install`
 3. Start local client site instance by running `npm run start`  
-    - After that, you'll see a message like the one below. That means the local site is up and running on some port (probably `localhost:5000/`).
+    - After that, you'll see a message like the one below. That means the local site is up and running on some port (probably `localhost:3000/`).
 
 
 This should be the output:
